@@ -15,12 +15,25 @@
             <div class="flex items-center gap-8">
                 <a href="{{ route('home') }}" class="text-lg font-semibold text-gray-900">Bicycle shop</a>
                 <nav class="hidden md:flex items-center gap-6 text-sm">
-                    <a href="#" class="text-gray-700 hover:text-indigo-600">Order Parts</a>
+                    <a href="{{ route('parts.index') }}" class="text-gray-700 hover:text-indigo-600">Parts</a>
                     <a href="{{ route('bicycles.index') }}" class="text-gray-700 hover:text-indigo-600">My Bicycles</a>
+                    <a href="{{ route('cart.index') }}" class="text-gray-700 hover:text-indigo-600">Cart</a>
+                    <a href="{{ route('orders.index') }}" class="text-gray-700 hover:text-indigo-600">My Orders</a>
+                    <a href="{{ route('alerts.index') }}" class="text-gray-700 hover:text-indigo-600 relative">
+                        Alerts
+                        @php($unreadCount = auth()->user()->alerts()->whereNull('read_at')->count())
+                        @if ($unreadCount > 0)
+                            <span
+                                class="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">{{ $unreadCount }}</span>
+                        @endif
+                    </a>
+                    <a href="{{ route('questions.index') }}" class="text-gray-700 hover:text-indigo-600">FAQ</a>
                     @auth
                         @if (auth()->user()->isAdmin() || auth()->user()->isWorker())
                             <a href="{{ route('warehouse.index') }}"
                                 class="text-gray-700 hover:text-indigo-600">Warehouse</a>
+                            <a href="{{ route('admin.orders.index') }}" class="text-gray-700 hover:text-indigo-600">Manage
+                                Orders</a>
                         @endif
                     @endauth
                 </nav>

@@ -32,4 +32,24 @@ class Bicycle extends Model
     {
         return $this->hasMany(BicycleItem::class);
     }
+
+    /**
+     * Calculate total price based on components
+     */
+    public function calculatePrice(): float
+    {
+        $total = 0;
+        foreach ($this->components()->with('part')->get() as $component) {
+            $total += ($component->part->price ?? 0) * $component->quantity;
+        }
+        return round($total, 2);
+    }
+
+    /**
+     * Get formatted price
+     */
+    public function getFormattedPriceAttribute(): string
+    {
+        return '€' . number_format($this->calculatePrice(), 2);
+    }
 }

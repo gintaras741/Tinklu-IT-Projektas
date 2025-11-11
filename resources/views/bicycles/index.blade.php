@@ -87,29 +87,51 @@
                                 </div>
                             </div>
 
-                            <div class="flex gap-2">
-                                <a href="{{ route('bicycles.show', $bicycle) }}"
-                                    class="flex-1 inline-flex justify-center items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white shadow hover:bg-indigo-500">
-                                    View
-                                </a>
-                                <a href="{{ route('bicycles.edit', $bicycle) }}"
-                                    class="flex-1 inline-flex justify-center items-center rounded-md bg-white border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                                    Edit
-                                </a>
-                                <form action="{{ route('bicycles.destroy', $bicycle) }}" method="POST" class="inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this bicycle?');">
+                            <div class="mb-4 pt-4 border-t border-gray-200">
+                                <p class="text-lg font-bold text-gray-900">
+                                    €{{ number_format($bicycle->calculatePrice(), 2) }}
+                                </p>
+                            </div>
+
+                            <div class="space-y-2">
+                                <form action="{{ route('cart.addBicycle', $bicycle) }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
+                                    <input type="hidden" name="quantity" value="1">
                                     <button type="submit"
-                                        class="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white shadow hover:bg-red-500">
+                                        class="w-full inline-flex justify-center items-center gap-2 rounded-md bg-green-600 px-3 py-2 text-sm font-medium text-white shadow hover:bg-green-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                            class="w-4 h-4">
-                                            <path fill-rule="evenodd"
-                                                d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z"
-                                                clip-rule="evenodd" />
+                                            class="w-5 h-5">
+                                            <path
+                                                d="M1 1.75A.75.75 0 011.75 1h1.628a1.75 1.75 0 011.734 1.51L5.18 3a65.25 65.25 0 0113.36 1.412.75.75 0 01.58.875 48.645 48.645 0 01-1.618 6.2.75.75 0 01-.712.513H6a2.503 2.503 0 00-2.292 1.5H17.25a.75.75 0 010 1.5H2.76a.75.75 0 01-.748-.807 4.002 4.002 0 012.716-3.486L3.626 2.716a.25.25 0 00-.248-.216H1.75A.75.75 0 011 1.75zM6 17.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15.5 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
                                         </svg>
+                                        Add to Cart
                                     </button>
                                 </form>
+
+                                <div class="flex gap-2">
+                                    <a href="{{ route('bicycles.show', $bicycle) }}"
+                                        class="flex-1 inline-flex justify-center items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white shadow hover:bg-indigo-500">
+                                        View
+                                    </a>
+                                    <a href="{{ route('bicycles.edit', $bicycle) }}"
+                                        class="flex-1 inline-flex justify-center items-center rounded-md bg-white border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('bicycles.destroy', $bicycle) }}" method="POST" class="inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this bicycle?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white shadow hover:bg-red-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                                class="w-4 h-4">
+                                                <path fill-rule="evenodd"
+                                                    d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -13,12 +13,15 @@ class BicyclePart extends Model
         'type', 
         'name', 
         'amount', 
-        'image'
+        'image',
+        'price',
+        'description'
     ];
 
     protected $casts = [
         'type' => PartType::class,
-        'amount' => 'integer'
+        'amount' => 'integer',
+        'price' => 'decimal:2'
     ];
 
     public function components(): HasMany
@@ -36,5 +39,21 @@ class BicyclePart extends Model
         return $this->belongsToMany(Bicycle::class, 'bicycle_components', 'bicycle_part_id', 'bicycle_id')
             ->using(BicycleComponent::class)
             ->withPivot('quantity');
+    }
+
+    /**
+     * Check if part is in stock
+     */
+    public function isInStock(int $quantity = 1): bool
+    {
+        return $this->amount >= $quantity;
+    }
+
+    /**
+     * Get formatted price
+     */
+    public function getFormattedPriceAttribute(): string
+    {
+        return '€' . number_format($this->price, 2);
     }
 }

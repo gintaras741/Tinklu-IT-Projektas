@@ -30,6 +30,7 @@
                         <th class="px-4 py-3 text-left font-medium text-gray-600">Type</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-600">Name</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-600">Amount</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-600">Price</th>
                         <th class="px-4 py-3 text-left font-medium text-gray-600">Image</th>
                         <th class="px-4 py-3 text-right font-medium text-gray-600">Actions</th>
                     </tr>
@@ -42,6 +43,7 @@
                                 {{ ucfirst(str_replace('_', ' ', $part->type->value ?? $part->type)) }}</td>
                             <td class="px-4 py-3 text-gray-900 font-medium">{{ $part->name }}</td>
                             <td class="px-4 py-3 text-gray-700">{{ $part->amount }}</td>
+                            <td class="px-4 py-3 text-gray-900 font-semibold">€{{ number_format($part->price, 2) }}</td>
                             <td class="px-4 py-3">
                                 @if ($part->image)
                                     <img src="{{ asset('storage/' . $part->image) }}" alt="{{ $part->name }}"
@@ -52,20 +54,37 @@
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex justify-end items-center gap-3">
-                                    <a href="{{ route('warehouse.edit', $part) }}"
-                                        class="text-indigo-600 hover:text-indigo-500">Edit</a>
-                                    <form action="{{ route('warehouse.destroy', $part) }}" method="POST" class="inline"
-                                        onsubmit="return confirm('Delete this part?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-500">Delete</button>
-                                    </form>
+                                    @auth
+                                        @if (auth()->user()->isUser())
+                                            @if ($part->amount > 0)
+                                                <form action="{{ route('cart.addPart', $part) }}" method="POST" class="inline">
+                                                    @csrf
+                                                    <input type="hidden" name="quantity" value="1">
+                                                    <button type="submit"
+                                                        class="text-green-600 hover:text-green-500 font-medium">Add to
+                                                        Cart</button>
+                                                </form>
+                                            @else
+                                                <span class="text-gray-400">Out of Stock</span>
+                                            @endif
+                                        @endif
+                                        @if (auth()->user()->hasRole([\App\Enums\Role::Admin, \App\Enums\Role::Worker]))
+                                            <a href="{{ route('warehouse.edit', $part) }}"
+                                                class="text-indigo-600 hover:text-indigo-500">Edit</a>
+                                            <form action="{{ route('warehouse.destroy', $part) }}" method="POST"
+                                                class="inline" onsubmit="return confirm('Delete this part?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-500">Delete</button>
+                                            </form>
+                                        @endif
+                                    @endauth
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-4 py-8 text-center text-gray-500">No parts yet. Click "New
+                            <td colspan="7" class="px-4 py-8 text-center text-gray-500">No parts yet. Click "New
                                 Part" to add one.</td>
                         </tr>
                     @endforelse

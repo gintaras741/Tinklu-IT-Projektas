@@ -3,23 +3,196 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="relative isolate overflow-hidden rounded-2xl bg-white p-8 shadow-sm border border-gray-200">
-        <div class="mx-auto max-w-2xl text-center">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Welcome to the Bicycle shop</h1>
-            <p class="mt-4 text-lg leading-8 text-gray-600">Manage your bicycles, order parts, and keep your warehouse
-                organized.</p>
-            <div class="mt-8 flex items-center justify-center gap-x-4">
-                <a href="#"
-                    class="rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">Order
-                    Parts</a>
-                <a href="#" class="text-sm font-semibold leading-6 text-gray-900">My Bicycles</a>
-                @auth
-                    @if (auth()->user()->isAdmin() || auth()->user()->isWorker())
-                        <a href="{{ route('warehouse.index') }}"
-                            class="text-sm font-semibold leading-6 text-gray-900">Warehouse</a>
-                    @endif
-                @endauth
-            </div>
+    <!-- Hero Section -->
+    <div class="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white shadow-lg mb-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Welcome to the Bicycle Shop</h1>
+            <p class="mt-4 text-lg text-indigo-100">Build custom bicycles, order parts, and track your orders all in one
+                place.</p>
         </div>
     </div>
+
+    <!-- Quick Actions -->
+    <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Quick Actions</h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Browse Parts -->
+            <a href="{{ route('parts.index') }}" <a href="{{ route('parts.index') }}"
+                class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="rounded-lg bg-indigo-100 p-3">
+                        <svg class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">Browse Parts</h3>
+                <p class="mt-1 text-sm text-gray-500">View available parts</p>
+            </a>
+
+            <!-- Shopping Cart -->
+            <a href="{{ route('cart.index') }}"
+                class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="rounded-lg bg-green-100 p-3">
+                        <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-green-600">Shopping Cart</h3>
+                <p class="mt-1 text-sm text-gray-500">View your cart</p>
+            </a>
+
+            <!-- My Orders -->
+            <a href="{{ route('orders.index') }}"
+                class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="rounded-lg bg-blue-100 p-3">
+                        <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-blue-600">My Orders</h3>
+                <p class="mt-1 text-sm text-gray-500">Track orders</p>
+            </a>
+
+            <!-- My Bicycles -->
+            <a href="{{ route('bicycles.index') }}"
+                class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="rounded-lg bg-purple-100 p-3">
+                        <svg class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-purple-600">My Bicycles</h3>
+                <p class="mt-1 text-sm text-gray-500">Manage builds</p>
+            </a>
+
+            <!-- Alerts -->
+            <a href="{{ route('alerts.index') }}"
+                class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="rounded-lg bg-red-100 p-3 relative">
+                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        @php($unreadCount = auth()->user()->alerts()->whereNull('read_at')->count())
+                        @if ($unreadCount > 0)
+                            <span
+                                class="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">{{ $unreadCount }}</span>
+                        @endif
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-red-600">Alerts</h3>
+                <p class="mt-1 text-sm text-gray-500">View notifications</p>
+            </a>
+
+            <!-- FAQ -->
+            <a href="{{ route('questions.index') }}"
+                class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="rounded-lg bg-yellow-100 p-3">
+                        <svg class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-yellow-600">FAQ</h3>
+                <p class="mt-1 text-sm text-gray-500">Ask questions</p>
+            </a>
+        </div>
+    </div>
+
+    @auth
+        @if (auth()->user()->hasRole([\App\Enums\Role::Admin, \App\Enums\Role::Worker]))
+            <!-- Admin Section -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Admin Tools</h2>
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Warehouse Management -->
+                    <a href="{{ route('warehouse.index') }}"
+                        class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="rounded-lg bg-orange-100 p-3">
+                                <svg class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 group-hover:text-orange-600">Warehouse</h3>
+                        <p class="mt-1 text-sm text-gray-500">Manage inventory</p>
+                    </a>
+
+                    <!-- Order Management -->
+                    <a href="{{ route('admin.orders.index') }}"
+                        class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="rounded-lg bg-red-100 p-3">
+                                <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 group-hover:text-red-600">Manage Orders</h3>
+                        <p class="mt-1 text-sm text-gray-500">View all orders</p>
+                    </a>
+
+                    <!-- Statistics -->
+                    <a href="{{ route('admin.orders.statistics') }}"
+                        class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="rounded-lg bg-teal-100 p-3">
+                                <svg class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 group-hover:text-teal-600">Statistics</h3>
+                        <p class="mt-1 text-sm text-gray-500">View metrics</p>
+                    </a>
+                </div>
+            </div>
+        @endif
+
+        <!-- Quick Stats -->
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Overview</h2>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 p-6 text-white shadow">
+                    <div class="text-sm font-medium opacity-90">Cart Items</div>
+                    <div class="mt-2 text-3xl font-bold">{{ auth()->user()->cart ? auth()->user()->cart->getItemCount() : 0 }}
+                    </div>
+                </div>
+
+                <div class="rounded-lg bg-gradient-to-br from-green-500 to-green-600 p-6 text-white shadow">
+                    <div class="text-sm font-medium opacity-90">My Bicycles</div>
+                    <div class="mt-2 text-3xl font-bold">{{ auth()->user()->bicycles->count() }}</div>
+                </div>
+
+                <div class="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white shadow">
+                    <div class="text-sm font-medium opacity-90">Total Orders</div>
+                    <div class="mt-2 text-3xl font-bold">{{ auth()->user()->orders->count() }}</div>
+                </div>
+
+                <div class="rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 p-6 text-white shadow">
+                    <div class="text-sm font-medium opacity-90">Active Orders</div>
+                    <div class="mt-2 text-3xl font-bold">
+                        {{ auth()->user()->orders()->whereIn('status', ['pending', 'processing'])->count() }}</div>
+                </div>
+            </div>
+        </div>
+    @endauth
 @endsection

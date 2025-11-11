@@ -76,23 +76,38 @@
                         <div class="component-row flex gap-3 items-start p-4 bg-gray-50 rounded-lg">
                             <div class="flex-1">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Part</label>
-                                <select name="components[{{ $index }}][bicycle_part_id]"
-                                    class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    onchange="updateAvailableQuantity(this)" required>
-                                    <option value="">Select a part...</option>
-                                    @foreach ($types as $type)
-                                        @if (isset($partsByType[$type->value]))
-                                            <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
-                                                @foreach ($partsByType[$type->value] as $part)
-                                                    <option value="{{ $part->id }}" data-max="{{ $part->amount }}"
-                                                        {{ $component['bicycle_part_id'] == $part->id ? 'selected' : '' }}>
-                                                        {{ $part->name }} ({{ $part->amount }} available)
-                                                    </option>
-                                                @endforeach
-                                            </optgroup>
-                                        @endif
-                                    @endforeach
-                                </select>
+                                <div class="flex gap-3">
+                                    <select name="components[{{ $index }}][bicycle_part_id]"
+                                        class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        onchange="updatePartImage(this)" required>
+                                        <option value="">Select a part...</option>
+                                        @foreach ($types as $type)
+                                            @if (isset($partsByType[$type->value]))
+                                                <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
+                                                    @foreach ($partsByType[$type->value] as $part)
+                                                        <option value="{{ $part->id }}" data-max="{{ $part->amount }}"
+                                                            data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}"
+                                                            {{ $component['bicycle_part_id'] == $part->id ? 'selected' : '' }}>
+                                                            {{ $part->name }} ({{ $part->amount }} available)
+                                                        </option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    <div class="part-image-container w-16 h-11 flex-shrink-0">
+                                        <img class="part-image hidden w-full h-full object-cover rounded-lg border border-gray-200"
+                                            alt="Part image">
+                                        <div
+                                            class="part-placeholder w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
                                 @error("components.$index.bicycle_part_id")
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -153,22 +168,34 @@
                 <div class="component-row flex gap-3 items-start p-4 bg-gray-50 rounded-lg">
                     <div class="flex-1">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Part</label>
-                        <select name="components[${componentIndex}][bicycle_part_id]"
-                            class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            onchange="updateAvailableQuantity(this)" required>
-                            <option value="">Select a part...</option>
-                            @foreach ($types as $type)
-                                @if (isset($partsByType[$type->value]))
-                                    <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
-                                        @foreach ($partsByType[$type->value] as $part)
-                                            <option value="{{ $part->id }}" data-max="{{ $part->amount }}">
-                                                {{ $part->name }} ({{ $part->amount }} available)
-                                            </option>
-                                        @endforeach
-                                    </optgroup>
-                                @endif
-                            @endforeach
-                        </select>
+                        <div class="flex gap-3">
+                            <select name="components[${componentIndex}][bicycle_part_id]"
+                                class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                onchange="updatePartImage(this)" required>
+                                <option value="">Select a part...</option>
+                                @foreach ($types as $type)
+                                    @if (isset($partsByType[$type->value]))
+                                        <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
+                                            @foreach ($partsByType[$type->value] as $part)
+                                                <option value="{{ $part->id }}" 
+                                                    data-max="{{ $part->amount }}"
+                                                    data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}">
+                                                    {{ $part->name }} ({{ $part->amount }} available)
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <div class="part-image-container w-16 h-11 flex-shrink-0">
+                                <img class="part-image hidden w-full h-full object-cover rounded-lg border border-gray-200" alt="Part image">
+                                <div class="part-placeholder w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="w-32">
@@ -209,21 +236,36 @@
             }
         }
 
-        function updateAvailableQuantity(select) {
+        function updatePartImage(select) {
             const row = select.closest('.component-row');
             const quantityInput = row.querySelector('.quantity-input');
+            const container = row.querySelector('.part-image-container');
+            const img = container.querySelector('.part-image');
+            const placeholder = container.querySelector('.part-placeholder');
             const selectedOption = select.options[select.selectedIndex];
             const maxQuantity = selectedOption.dataset.max;
+            const imageUrl = selectedOption.dataset.image;
 
+            // Update quantity validation
             if (maxQuantity) {
                 quantityInput.max = maxQuantity;
                 if (parseInt(quantityInput.value) > parseInt(maxQuantity)) {
                     quantityInput.value = maxQuantity;
                 }
             }
+
+            // Update image display
+            if (imageUrl) {
+                img.src = imageUrl;
+                img.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            } else {
+                img.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+            }
         }
 
-        // Initialize empty state on page load
+        // Initialize empty state and images on page load
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('components-container');
             const emptyState = document.getElementById('empty-state');
@@ -231,6 +273,13 @@
             if (container.children.length === 0) {
                 emptyState.style.display = 'block';
             }
+
+            // Initialize images for existing components
+            container.querySelectorAll('.part-select').forEach(select => {
+                if (select.value) {
+                    updatePartImage(select);
+                }
+            });
         });
     </script>
 @endsection

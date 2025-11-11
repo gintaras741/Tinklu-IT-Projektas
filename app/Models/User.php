@@ -95,6 +95,11 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
+    public function bicycles(): HasMany
+    {
+        return $this->hasMany(Bicycle::class);
+    }
+
     public function alerts(): HasMany
     {
         return $this->hasMany(Alert::class);

@@ -16,7 +16,7 @@
                 <a href="{{ route('home') }}" class="text-lg font-semibold text-gray-900">Bicycle shop</a>
                 <nav class="hidden md:flex items-center gap-6 text-sm">
                     <a href="#" class="text-gray-700 hover:text-indigo-600">Order Parts</a>
-                    <a href="#" class="text-gray-700 hover:text-indigo-600">My Bicycles</a>
+                    <a href="{{ route('bicycles.index') }}" class="text-gray-700 hover:text-indigo-600">My Bicycles</a>
                     @auth
                         @if (auth()->user()->isAdmin() || auth()->user()->isWorker())
                             <a href="{{ route('warehouse.index') }}"

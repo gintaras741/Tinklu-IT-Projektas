@@ -30,4 +30,15 @@ Route::middleware(['auth', 'role:admin,worker'])->group(function () {
     Route::delete('/warehouse/{bicycle_part}', [\App\Http\Controllers\WarehousePartController::class, 'destroy'])->name('warehouse.destroy');
 });
 
+// My Bicycles (authenticated users)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/bicycles', [\App\Http\Controllers\MyBicycleController::class, 'index'])->name('bicycles.index');
+    Route::get('/bicycles/create', [\App\Http\Controllers\MyBicycleController::class, 'create'])->name('bicycles.create');
+    Route::post('/bicycles', [\App\Http\Controllers\MyBicycleController::class, 'store'])->name('bicycles.store');
+    Route::get('/bicycles/{bicycle}', [\App\Http\Controllers\MyBicycleController::class, 'show'])->name('bicycles.show');
+    Route::get('/bicycles/{bicycle}/edit', [\App\Http\Controllers\MyBicycleController::class, 'edit'])->name('bicycles.edit');
+    Route::put('/bicycles/{bicycle}', [\App\Http\Controllers\MyBicycleController::class, 'update'])->name('bicycles.update');
+    Route::delete('/bicycles/{bicycle}', [\App\Http\Controllers\MyBicycleController::class, 'destroy'])->name('bicycles.destroy');
+});
+
 require __DIR__.'/auth.php';

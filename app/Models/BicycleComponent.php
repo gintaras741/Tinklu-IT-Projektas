@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class BicycleComponent extends Pivot
 {
-    protected $fillable = ['quantity'];
+    protected $table = 'bicycle_components';
+    
+    protected $fillable = ['bicycle_id', 'bicycle_part_id', 'quantity'];
 
     public function bicycle(): BelongsTo
     {
@@ -16,6 +18,6 @@ class BicycleComponent extends Pivot
 
     public function part(): BelongsTo
     {
-        return $this->belongsTo(BicyclePart::class);
+        return $this->belongsTo(BicyclePart::class, 'bicycle_part_id');
     }
 }

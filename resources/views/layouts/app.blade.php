@@ -35,6 +35,10 @@
                             <a href="{{ route('admin.orders.index') }}" class="text-gray-700 hover:text-indigo-600">Manage
                                 Orders</a>
                         @endif
+                        @if (auth()->user()->isAdmin())
+                            <a href="{{ route('admin.users.index') }}" class="text-gray-700 hover:text-indigo-600">Manage
+                                Users</a>
+                        @endif
                     @endauth
                 </nav>
             </div>

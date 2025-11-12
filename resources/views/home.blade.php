@@ -163,6 +163,24 @@
                         <h3 class="font-semibold text-gray-900 group-hover:text-teal-600">Statistics</h3>
                         <p class="mt-1 text-sm text-gray-500">View metrics</p>
                     </a>
+
+                    @if (auth()->user()->isAdmin())
+                        <!-- Manage Users -->
+                        <a href="{{ route('admin.users.index') }}"
+                            class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="rounded-lg bg-cyan-100 p-3">
+                                    <svg class="h-6 w-6 text-cyan-600" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-cyan-600">Manage Users</h3>
+                            <p class="mt-1 text-sm text-gray-500">View & edit users</p>
+                        </a>
+                    @endif
                 </div>
             </div>
         @endif

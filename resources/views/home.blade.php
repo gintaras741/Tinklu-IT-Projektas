@@ -166,33 +166,5 @@
                 </div>
             </div>
         @endif
-
-        <!-- Quick Stats -->
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Overview</h2>
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 p-6 text-white shadow">
-                    <div class="text-sm font-medium opacity-90">Cart Items</div>
-                    <div class="mt-2 text-3xl font-bold">{{ auth()->user()->cart ? auth()->user()->cart->getItemCount() : 0 }}
-                    </div>
-                </div>
-
-                <div class="rounded-lg bg-gradient-to-br from-green-500 to-green-600 p-6 text-white shadow">
-                    <div class="text-sm font-medium opacity-90">My Bicycles</div>
-                    <div class="mt-2 text-3xl font-bold">{{ auth()->user()->bicycles->count() }}</div>
-                </div>
-
-                <div class="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white shadow">
-                    <div class="text-sm font-medium opacity-90">Total Orders</div>
-                    <div class="mt-2 text-3xl font-bold">{{ auth()->user()->orders->count() }}</div>
-                </div>
-
-                <div class="rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 p-6 text-white shadow">
-                    <div class="text-sm font-medium opacity-90">Active Orders</div>
-                    <div class="mt-2 text-3xl font-bold">
-                        {{ auth()->user()->orders()->whereIn('status', ['pending', 'processing'])->count() }}</div>
-                </div>
-            </div>
-        </div>
     @endauth
 @endsection

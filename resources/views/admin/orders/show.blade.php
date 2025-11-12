@@ -1,38 +1,42 @@
-<x-layouts.app>
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <div class="md:flex md:items-center md:justify-between">
-            <div class="min-w-0 flex-1">
-                <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                    Order #{{ $order->order_number }}
-                </h2>
-            </div>
-            <div class="mt-4 flex md:ml-4 md:mt-0">
-                <a href="{{ route('admin.orders.index') }}"
-                    class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                    Back to Orders
-                </a>
-            </div>
+@extends('layouts.app')
+
+@section('title', 'Order Details')
+
+@section('content')
+    @php($status = session('status'))
+    @php($error = session('error'))
+
+    <div class="max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-3xl font-semibold text-gray-900">Order #{{ $order->order_number }}</h1>
+            <a href="{{ route('admin.orders.index') }}"
+                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Orders
+            </a>
         </div>
 
-        @if (session('status'))
-            <div class="mt-4 rounded-md bg-green-50 p-4">
-                <p class="text-sm font-medium text-green-800">{{ session('status') }}</p>
+        @if ($status)
+            <div class="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-800">
+                {{ $status }}
             </div>
         @endif
 
-        @if (session('error'))
-            <div class="mt-4 rounded-md bg-red-50 p-4">
-                <p class="text-sm font-medium text-red-800">{{ session('error') }}</p>
+        @if ($error)
+            <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-800">
+                {{ $error }}
             </div>
         @endif
 
-        <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <!-- Order Details -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Customer Information -->
-                <div class="rounded-lg bg-white shadow">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Customer Information</h3>
+                <div class="rounded-xl bg-white shadow-sm border border-gray-200">
+                    <div class="px-6 py-5">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Customer Information</h3>
                         <div class="space-y-2">
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-600">Name</span>
@@ -48,20 +52,18 @@
 
                 <!-- Order Items - Parts -->
                 @if ($order->partItems->isNotEmpty())
-                    <div class="rounded-lg bg-white shadow">
-                        <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Parts</h3>
+                    <div class="rounded-xl bg-white shadow-sm border border-gray-200">
+                        <div class="px-6 py-5">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Parts</h3>
                             <div class="space-y-4">
                                 @foreach ($order->partItems as $item)
                                     <div class="flex items-center justify-between border-b pb-4 last:border-b-0">
                                         <div class="flex items-center space-x-4">
                                             @if ($item->part->image)
                                                 <img src="{{ asset('storage/' . $item->part->image) }}"
-                                                    alt="{{ $item->part->name }}"
-                                                    class="h-16 w-16 rounded object-cover">
+                                                    alt="{{ $item->part->name }}" class="h-16 w-16 rounded object-cover">
                                             @else
-                                                <div
-                                                    class="h-16 w-16 rounded bg-gray-200 flex items-center justify-center">
+                                                <div class="h-16 w-16 rounded bg-gray-200 flex items-center justify-center">
                                                     <span class="text-gray-400 text-xs">No image</span>
                                                 </div>
                                             @endif
@@ -86,9 +88,9 @@
 
                 <!-- Order Items - Bicycles -->
                 @if ($order->bicycleItems->isNotEmpty())
-                    <div class="rounded-lg bg-white shadow">
-                        <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Bicycles</h3>
+                    <div class="rounded-xl bg-white shadow-sm border border-gray-200">
+                        <div class="px-6 py-5">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Bicycles</h3>
                             <div class="space-y-4">
                                 @foreach ($order->bicycleItems as $item)
                                     <div class="border-b pb-4 last:border-b-0">
@@ -120,18 +122,18 @@
                 @endif
 
                 <!-- Shipping Address -->
-                <div class="rounded-lg bg-white shadow">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Shipping Address</h3>
+                <div class="rounded-xl bg-white shadow-sm border border-gray-200">
+                    <div class="px-6 py-5">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Shipping Address</h3>
                         <p class="text-sm text-gray-600 whitespace-pre-line">{{ $order->shipping_address }}</p>
                     </div>
                 </div>
 
                 <!-- Notes -->
                 @if ($order->notes)
-                    <div class="rounded-lg bg-white shadow">
-                        <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Notes</h3>
+                    <div class="rounded-xl bg-white shadow-sm border border-gray-200">
+                        <div class="px-6 py-5">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Notes</h3>
                             <p class="text-sm text-gray-600 whitespace-pre-line">{{ $order->notes }}</p>
                         </div>
                     </div>
@@ -141,17 +143,39 @@
             <!-- Order Summary & Status Update -->
             <div class="lg:col-span-1 space-y-6">
                 <!-- Order Summary -->
-                <div class="rounded-lg bg-white shadow sticky top-4">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Order Summary</h3>
+                <div class="rounded-xl bg-white shadow-sm border border-gray-200 sticky top-4">
+                    <div class="px-6 py-5">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
 
                         <div class="space-y-3 mb-4">
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-600">Status</span>
-                                <span
-                                    class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-{{ $order->status->color() }}-100 text-{{ $order->status->color() }}-800">
-                                    {{ $order->status->label() }}
-                                </span>
+                                @if ($order->status->value === 'pending')
+                                    <span
+                                        class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        Pending
+                                    </span>
+                                @elseif($order->status->value === 'processing')
+                                    <span
+                                        class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800">
+                                        Processing
+                                    </span>
+                                @elseif($order->status->value === 'shipped')
+                                    <span
+                                        class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-purple-100 text-purple-800">
+                                        Shipped
+                                    </span>
+                                @elseif($order->status->value === 'delivered')
+                                    <span
+                                        class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-green-100 text-green-800">
+                                        Delivered
+                                    </span>
+                                @else
+                                    <span
+                                        class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-red-100 text-red-800">
+                                        Cancelled
+                                    </span>
+                                @endif
                             </div>
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-600">Order Date</span>
@@ -174,9 +198,9 @@
 
                 <!-- Update Status -->
                 @if ($order->status->value !== 'cancelled' && $order->status->value !== 'delivered')
-                    <div class="rounded-lg bg-white shadow">
-                        <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Update Status</h3>
+                    <div class="rounded-xl bg-white shadow-sm border border-gray-200">
+                        <div class="px-6 py-5">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Update Status</h3>
                             <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}">
                                 @csrf
                                 @method('PUT')
@@ -185,7 +209,7 @@
                                         <label for="status" class="block text-sm font-medium text-gray-700">New
                                             Status</label>
                                         <select id="status" name="status" required
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                            class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="pending"
                                                 {{ $order->status->value === 'pending' ? 'selected' : '' }}>Pending
                                             </option>
@@ -204,7 +228,12 @@
                                         </select>
                                     </div>
                                     <button type="submit"
-                                        class="w-full flex justify-center items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">
+                                        class="w-full flex justify-center items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 transition-colors">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                        </svg>
                                         Update Status
                                     </button>
                                 </div>
@@ -215,4 +244,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+@endsection

@@ -32,6 +32,7 @@ it('can create a bicycle part', function () {
         'type' => PartType::Frame->value,
         'name' => 'Test Frame',
         'amount' => 5,
+        'price' => 199.99,
     ];
 
     $this->actingAs($admin)
@@ -42,6 +43,7 @@ it('can create a bicycle part', function () {
         'type' => PartType::Frame->value,
         'name' => 'Test Frame',
         'amount' => 5,
+        'price' => 199.99,
     ]);
 });
 
@@ -51,6 +53,7 @@ it('can update a bicycle part', function () {
         'type' => PartType::Fork->value,
         'name' => 'Test Fork',
         'amount' => 2,
+        'price' => 99.99,
     ]);
 
     $this->actingAs($worker)
@@ -58,12 +61,14 @@ it('can update a bicycle part', function () {
             'type' => PartType::Fork->value,
             'name' => 'Test Fork Updated',
             'amount' => 3,
+            'price' => 89.99,
         ])->assertRedirect(route('warehouse.index'));
 
     $this->assertDatabaseHas('bicycle_parts', [
         'id' => $part->id,
         'name' => 'Test Fork Updated',
         'amount' => 3,
+        'price' => 89.99,
     ]);
 });
 

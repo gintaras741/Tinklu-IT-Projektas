@@ -16,7 +16,8 @@
                 <a href="{{ route('home') }}" class="text-lg font-semibold text-gray-900">Dviračių parduotuvė</a>
                 <nav class="hidden md:flex items-center gap-6 text-sm">
                     <a href="{{ route('parts.index') }}" class="text-gray-700 hover:text-indigo-600">Dalys</a>
-                    <a href="{{ route('bicycles.index') }}" class="text-gray-700 hover:text-indigo-600">Mano dviračiai</a>
+                    <a href="{{ route('bicycles.index') }}" class="text-gray-700 hover:text-indigo-600">Mano
+                        dviračiai</a>
                     <a href="{{ route('cart.index') }}" class="text-gray-700 hover:text-indigo-600">Krepšelis</a>
                     <a href="{{ route('orders.index') }}" class="text-gray-700 hover:text-indigo-600">Mano užsakymai</a>
                     <a href="{{ route('alerts.index') }}" class="text-gray-700 hover:text-indigo-600 relative">

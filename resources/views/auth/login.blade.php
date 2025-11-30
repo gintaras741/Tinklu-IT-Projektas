@@ -11,7 +11,8 @@
                 @csrf
                 <!-- Email Input -->
                 <div>
-                    <x-forms.input label="El. paštas" name="email" type="email" placeholder="your@email.com" autofocus />
+                    <x-forms.input label="El. paštas" name="email" type="email" placeholder="your@email.com"
+                        autofocus />
                 </div>
 
                 <!-- Password Input -->
@@ -22,7 +23,8 @@
                     <div class="flex items-center justify-between mt-2">
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}"
-                                class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Pamiršote slaptažodį?</a>
+                                class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Pamiršote
+                                slaptažodį?</a>
                         @endif
                         <x-forms.checkbox label="Prisiminti mane" name="remember" />
                     </div>
@@ -45,3 +47,4 @@
         </div>
     </div>
 </x-layouts.auth>
+

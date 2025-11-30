@@ -7,7 +7,8 @@
     <div class="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white shadow-lg mb-8">
         <div class="text-center">
             <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Sveiki atvykę į dviračių parduotuvę</h1>
-            <p class="mt-4 text-lg text-indigo-100">Kurkite individualius dviračius, užsakykite dalis ir sekite savo užsakymus vienoje vietoje.</p>
+            <p class="mt-4 text-lg text-indigo-100">Kurkite individualius dviračius, užsakykite dalis ir sekite savo
+                užsakymus vienoje vietoje.</p>
         </div>
     </div>
 

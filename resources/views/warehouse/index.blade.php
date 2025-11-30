@@ -84,7 +84,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-4 py-8 text-center text-gray-500">Dalių dar nėra. Spauskite "Nauja dalį" norėdami pridėti.</td>
+                            <td colspan="7" class="px-4 py-8 text-center text-gray-500">Dalių dar nėra. Spauskite "Nauja
+                                dalį" norėdami pridėti.</td>
                         </tr>
                     @endforelse
                 </tbody>

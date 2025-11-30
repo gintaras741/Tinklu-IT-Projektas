@@ -112,7 +112,7 @@
                                                 <p class="text-sm text-gray-500">{{ $item->bicycle->components->count() }}
                                                     komponentų</p>
                                                 <p class="text-sm text-gray-600">Kiekis: {{ $item->amount }}</p>
-                                                    <p class="text-sm font-medium text-gray-900">
+                                                <p class="text-sm font-medium text-gray-900">
                                                     €{{ number_format($item->bicycle->calculatePrice(), 2) }} vnt.</p>
                                             </div>
                                             <div class="flex items-center space-x-4">

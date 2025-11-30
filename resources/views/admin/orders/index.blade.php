@@ -58,7 +58,8 @@
                                         <div class="flex items-center gap-4">
                                             <p>Klientas: <span
                                                     class="font-medium text-gray-700">{{ $order->user->name }}</span></p>
-                                            <p>{{ $order->partItems->count() + $order->bicycleItems->count() }} prekė(-s)</p>
+                                            <p>{{ $order->partItems->count() + $order->bicycleItems->count() }} prekė(-s)
+                                            </p>
                                         </div>
                                         <p>{{ $order->ordered_at->format('M d, Y H:i') }}</p>
                                     </div>

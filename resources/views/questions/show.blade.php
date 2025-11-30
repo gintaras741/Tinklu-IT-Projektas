@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Question Details')
+@section('title', 'Klausimo detalės')
 
 @section('content')
     @php($status = session('status'))
@@ -12,7 +12,7 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to FAQ
+                Grįžti į DUK
             </a>
         </div>
 
@@ -34,14 +34,14 @@
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">
-                            Asked by <span class="font-medium text-gray-900">{{ $question->user->name }}</span>
+                            Klausė <span class="font-medium text-gray-900">{{ $question->user->name }}</span>
                         </p>
                         <p class="text-xs text-gray-400">{{ $question->created_at->format('M d, Y \a\t H:i') }}</p>
                     </div>
                 </div>
                 @if ($question->user_id === auth()->id() || auth()->user()->isAdmin())
                     <form method="POST" action="{{ route('questions.destroy', $question) }}"
-                        onsubmit="return confirm('Are you sure you want to delete this question?');">
+                        onsubmit="return confirm('Ar tikrai norite ištrinti šį klausimą?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -50,7 +50,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
-                            Delete
+                            Ištrinti
                         </button>
                     </form>
                 @endif
@@ -64,7 +64,7 @@
         <!-- Answers Section -->
         <div class="mb-6">
             <h2 class="text-xl font-bold text-gray-900 mb-4">
-                Answers
+                Atsakymai
                 @if ($question->answers->count() > 0)
                     <span class="text-sm font-normal text-gray-500">({{ $question->answers->count() }})</span>
                 @endif
@@ -77,7 +77,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
-                    <p class="text-gray-600">No answers yet. An admin or worker will respond soon.</p>
+                    <p class="text-gray-600">Atsakymų dar nėra. Administratorius arba darbuotojas atsakys netrukus.</p>
                 </div>
             @else
                 <div class="space-y-4">
@@ -108,12 +108,12 @@
                                 @if ($answer->user_id === auth()->id() || auth()->user()->isAdmin())
                                     <form method="POST"
                                         action="{{ route('questions.answers.destroy', [$question, $answer]) }}"
-                                        onsubmit="return confirm('Are you sure you want to delete this answer?');">
+                                        onsubmit="return confirm('Ar tikrai norite ištrinti šį atsakymą?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
                                             class="inline-flex items-center rounded-md bg-red-50 p-2 text-red-600 hover:bg-red-100 transition-colors"
-                                            title="Delete answer">
+                                            title="Ištrinti atsakymą">
                                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -132,14 +132,14 @@
         <!-- Answer Form (for admin/worker only) -->
         @if (auth()->user()->hasRole([\App\Enums\Role::Admin, \App\Enums\Role::Worker]))
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Post an Answer</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Pateikti atsakymą</h3>
                 <form method="POST" action="{{ route('questions.answers.store', $question) }}">
                     @csrf
                     <div class="mb-4">
-                        <textarea name="text" rows="5" required maxlength="2000" placeholder="Write your answer here..."
+                        <textarea name="text" rows="5" required maxlength="2000" placeholder="Parašykite savo atsakymą čia..."
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-3 text-base">{{ old('text') }}</textarea>
                         <p class="mt-1 text-sm text-gray-500">
-                            Minimum 5 characters, maximum 2000 characters
+                            Mažiausiai 5 simboliai, daugiausiai 2000 simbolių
                         </p>
                         @error('text')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -151,7 +151,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                         </svg>
-                        Post Answer
+                        Paskelbti atsakymą
                     </button>
                 </form>
             </div>

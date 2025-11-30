@@ -8,10 +8,10 @@
 
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Order #{{ $order->order_number }}</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Užsakymas #{{ $order->order_number }}</h1>
             <a href="{{ route('orders.index') }}"
                 class="inline-flex items-center rounded-md bg-white border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
-                Back to Orders
+                Back to Užsakymai
             </a>
         </div>
 
@@ -44,18 +44,18 @@
                                                     alt="{{ $item->part->name }}" class="h-16 w-16 rounded object-cover">
                                             @else
                                                 <div class="h-16 w-16 rounded bg-gray-200 flex items-center justify-center">
-                                                    <span class="text-gray-400 text-xs">No image</span>
+                                                    <span class="text-gray-400 text-xs">Nėra nuotraukos</span>
                                                 </div>
                                             @endif
                                             <div>
                                                 <p class="font-medium text-gray-900">{{ $item->part->name }}</p>
                                                 <p class="text-sm text-gray-500">{{ $item->part->type->value }}</p>
-                                                <p class="text-sm text-gray-600">Quantity: {{ $item->amount }}</p>
+                                                <p class="text-sm text-gray-600">Kiekis: {{ $item->amount }}</p>
                                             </div>
                                         </div>
                                         <div class="text-right">
                                             <p class="text-sm text-gray-500">
-                                                €{{ number_format($item->price_at_purchase, 2) }} each</p>
+                                                €{{ number_format($item->price_at_purchase, 2) }} vnt.</p>
                                             <p class="font-medium text-gray-900">€{{ number_format($item->subtotal, 2) }}
                                             </p>
                                         </div>
@@ -77,17 +77,17 @@
                                         <div class="flex items-center justify-between mb-2">
                                             <div>
                                                 <p class="font-medium text-gray-900">{{ $item->bicycle->name }}</p>
-                                                <p class="text-sm text-gray-600">Quantity: {{ $item->amount }}</p>
+                                                <p class="text-sm text-gray-600">Kiekis: {{ $item->amount }}</p>
                                             </div>
                                             <div class="text-right">
                                                 <p class="text-sm text-gray-500">
-                                                    €{{ number_format($item->price_at_purchase, 2) }} each</p>
+                                                    €{{ number_format($item->price_at_purchase, 2) }} vnt.</p>
                                                 <p class="font-medium text-gray-900">
                                                     €{{ number_format($item->subtotal, 2) }}</p>
                                             </div>
                                         </div>
                                         <div class="mt-2 ml-4 space-y-1">
-                                            <p class="text-xs font-medium text-gray-500">Components:</p>
+                                            <p class="text-xs font-medium text-gray-500">Komponentai:</p>
                                             @foreach ($item->bicycle->components as $component)
                                                 <p class="text-xs text-gray-600">
                                                     {{ $component->part->name }} × {{ $component->quantity }}
@@ -101,10 +101,10 @@
                     </div>
                 @endif
 
-                <!-- Shipping Address -->
+                <!-- Pristatymo adresas -->
                 <div class="rounded-lg bg-white shadow">
                     <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Shipping Address</h3>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Pristatymo adresas</h3>
                         <p class="text-sm text-gray-600 whitespace-pre-line">{{ $order->shipping_address }}</p>
                     </div>
                 </div>
@@ -124,40 +124,40 @@
             <div class="lg:col-span-1">
                 <div class="rounded-lg bg-white shadow sticky top-4">
                     <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Order Summary</h3>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Užsakymo santrauka</h3>
 
                         <div class="space-y-3 mb-4">
                             <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">Status</span>
+                                <span class="text-gray-600">Būsena</span>
                                 <span
                                     class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-{{ $order->status->color() }}-100 text-{{ $order->status->color() }}-800">
                                     {{ $order->status->label() }}
                                 </span>
                             </div>
                             <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">Order Date</span>
+                                <span class="text-gray-600">Užsakymo data</span>
                                 <span class="font-medium">{{ $order->ordered_at->format('M d, Y') }}</span>
                             </div>
                             <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">Order Number</span>
+                                <span class="text-gray-600">Užsakymo numeris</span>
                                 <span class="font-medium">{{ $order->order_number }}</span>
                             </div>
                         </div>
 
                         <div class="border-t pt-4 mb-4">
                             <div class="flex justify-between text-lg font-bold text-gray-900">
-                                <p>Total</p>
+                                <p>Iš viso</p>
                                 <p>€{{ number_format($order->total_amount, 2) }}</p>
                             </div>
                         </div>
 
                         @if ($order->canBeCancelled())
                             <form method="POST" action="{{ route('orders.cancel', $order) }}"
-                                onsubmit="return confirm('Are you sure you want to cancel this order? This action cannot be undone.');">
+                                onsubmit="return confirm('Ar tikrai norite atšaukti šį užsakymą? Šio veiksmo negalima atstatyti.');">
                                 @csrf
                                 <button type="submit"
                                     class="w-full flex justify-center items-center rounded-md border border-red-300 bg-white px-6 py-3 text-base font-medium text-red-700 shadow-sm hover:bg-red-50">
-                                    Cancel Order
+                                    Atšaukti užsakymą
                                 </button>
                             </form>
                         @endif

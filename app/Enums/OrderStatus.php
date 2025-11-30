@@ -18,11 +18,11 @@ enum OrderStatus: string
     public function label(): string
     {
         return match($this) {
-            self::Pending => 'Pending',
-            self::Processing => 'Processing',
-            self::Shipped => 'Shipped',
-            self::Delivered => 'Delivered',
-            self::Cancelled => 'Cancelled',
+            self::Pending => 'Laukiama',
+            self::Processing => 'Vykdoma',
+            self::Shipped => 'Išsiųsta',
+            self::Delivered => 'Pristatyta',
+            self::Cancelled => 'Atšaukta',
         };
     }
 

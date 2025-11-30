@@ -14,7 +14,7 @@
                         d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z"
                         clip-rule="evenodd" />
                 </svg>
-                Back to My Bicycles
+                Atgal į Mano Dviračius
             </a>
             <div class="flex items-center justify-between">
                 <h1 class="text-3xl font-semibold text-gray-900">{{ $bicycle->name }}</h1>
@@ -25,10 +25,10 @@
                             <path
                                 d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" />
                         </svg>
-                        Edit
+                        Redaguoti
                     </a>
                     <form action="{{ route('bicycles.destroy', $bicycle) }}" method="POST" class="inline"
-                        onsubmit="return confirm('Are you sure you want to delete this bicycle?');">
+                        onsubmit="return confirm('Ar tikrai norite ištrinti šį dvirati?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -38,7 +38,7 @@
                                     d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Delete
+                            Ištrinti
                         </button>
                     </form>
                 </div>
@@ -53,21 +53,21 @@
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm mb-6">
             <div class="p-6 border-b border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900">Summary</h2>
+                <h2 class="text-lg font-semibold text-gray-900">Santrauka</h2>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-3 gap-6">
                     <div>
-                        <p class="text-sm text-gray-600 mb-1">Total Components</p>
+                        <p class="text-sm text-gray-600 mb-1">Iš viso komponentų</p>
                         <p class="text-2xl font-semibold text-gray-900">{{ $bicycle->components->count() }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600 mb-1">Total Parts</p>
+                        <p class="text-sm text-gray-600 mb-1">Iš viso dalių</p>
                         <p class="text-2xl font-semibold text-gray-900">{{ $bicycle->components->sum('quantity') }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600 mb-1">Created</p>
-                        <p class="text-2xl font-semibold text-gray-900">{{ $bicycle->created_at->format('M d, Y') }}</p>
+                        <p class="text-sm text-gray-600 mb-1">Sukurta</p>
+                        <p class="text-2xl font-semibold text-gray-900">{{ $bicycle->created_at->format('Y M j') }}</p>
                     </div>
                 </div>
             </div>
@@ -75,16 +75,16 @@
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
             <div class="p-6 border-b border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900">Components</h2>
+                <h2 class="text-lg font-semibold text-gray-900">Komponentai</h2>
             </div>
             <div class="overflow-hidden">
                 <table class="min-w-full divide-y divide-gray-200 text-sm">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left font-medium text-gray-600">Part</th>
-                            <th class="px-6 py-3 text-left font-medium text-gray-600">Type</th>
-                            <th class="px-6 py-3 text-left font-medium text-gray-600">Quantity</th>
-                            <th class="px-6 py-3 text-left font-medium text-gray-600">Image</th>
+                            <th class="px-6 py-3 text-left font-medium text-gray-600">Dalis</th>
+                            <th class="px-6 py-3 text-left font-medium text-gray-600">Tipas</th>
+                            <th class="px-6 py-3 text-left font-medium text-gray-600">Kiekis</th>
+                            <th class="px-6 py-3 text-left font-medium text-gray-600">Nuotrauka</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 bg-white">

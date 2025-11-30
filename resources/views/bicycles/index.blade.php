@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'My Bicycles')
+@section('title', 'Mano dviračiai')
 
 @section('content')
     @php($status = session('status'))
@@ -8,14 +8,14 @@
 
     <div class="max-w-6xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">My Bicycles</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Mano dviračiai</h1>
             <a href="{{ route('bicycles.create') }}"
                 class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-white shadow hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                     <path
                         d="M12 4.5a.75.75 0 01.75.75v6h6a.75.75 0 010 1.5h-6v6a.75.75 0 01-1.5 0v-6h-6a.75.75 0 010-1.5h6v-6A.75.75 0 0112 4.5z" />
                 </svg>
-                Build New Bicycle
+                Sukurti naują dviratį
             </a>
         </div>
 
@@ -38,15 +38,15 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                 </svg>
-                <h3 class="text-lg font-medium text-gray-900 mb-2">No bicycles yet</h3>
-                <p class="text-gray-500 mb-6">Start building your custom bicycle from available parts.</p>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Dviračių dar nėra</h3>
+                <p class="text-gray-500 mb-6">Pradėkite kurti savo individualų dviratį iš turimų dalių.</p>
                 <a href="{{ route('bicycles.create') }}"
                     class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-white shadow hover:bg-indigo-500">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                         <path
                             d="M12 4.5a.75.75 0 01.75.75v6h6a.75.75 0 010 1.5h-6v6a.75.75 0 01-1.5 0v-6h-6a.75.75 0 010-1.5h6v-6A.75.75 0 0112 4.5z" />
                     </svg>
-                    Build Your First Bicycle
+                    Sukurti pirmą dviratį
                 </a>
             </div>
         @else
@@ -59,18 +59,18 @@
 
                             <div class="space-y-2 mb-4">
                                 <div class="flex items-center justify-between text-sm">
-                                    <span class="text-gray-600">Components:</span>
+                                    <span class="text-gray-600">Komponentai:</span>
                                     <span class="font-medium text-gray-900">{{ $bicycle->components->count() }}</span>
                                 </div>
                                 <div class="flex items-center justify-between text-sm">
-                                    <span class="text-gray-600">Total Parts:</span>
+                                    <span class="text-gray-600">Iš viso dalių:</span>
                                     <span
                                         class="font-medium text-gray-900">{{ $bicycle->components->sum('quantity') }}</span>
                                 </div>
                             </div>
 
                             <div class="mb-4">
-                                <p class="text-xs text-gray-500 mb-2">Parts used:</p>
+                                <p class="text-xs text-gray-500 mb-2">Naudojamos dalys:</p>
                                 <div class="flex flex-wrap gap-1">
                                     @foreach ($bicycle->components->take(3) as $component)
                                         <span
@@ -81,7 +81,7 @@
                                     @if ($bicycle->components->count() > 3)
                                         <span
                                             class="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
-                                            +{{ $bicycle->components->count() - 3 }} more
+                                            +{{ $bicycle->components->count() - 3 }} daugiau
                                         </span>
                                     @endif
                                 </div>
@@ -104,21 +104,21 @@
                                             <path
                                                 d="M1 1.75A.75.75 0 011.75 1h1.628a1.75 1.75 0 011.734 1.51L5.18 3a65.25 65.25 0 0113.36 1.412.75.75 0 01.58.875 48.645 48.645 0 01-1.618 6.2.75.75 0 01-.712.513H6a2.503 2.503 0 00-2.292 1.5H17.25a.75.75 0 010 1.5H2.76a.75.75 0 01-.748-.807 4.002 4.002 0 012.716-3.486L3.626 2.716a.25.25 0 00-.248-.216H1.75A.75.75 0 011 1.75zM6 17.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15.5 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
                                         </svg>
-                                        Add to Cart
+                                        Pridėti į krepšelį
                                     </button>
                                 </form>
 
                                 <div class="flex gap-2">
                                     <a href="{{ route('bicycles.show', $bicycle) }}"
                                         class="flex-1 inline-flex justify-center items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white shadow hover:bg-indigo-500">
-                                        View
+                                        Peržiūrėti
                                     </a>
                                     <a href="{{ route('bicycles.edit', $bicycle) }}"
                                         class="flex-1 inline-flex justify-center items-center rounded-md bg-white border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                                        Edit
+                                        Redaguoti
                                     </a>
                                     <form action="{{ route('bicycles.destroy', $bicycle) }}" method="POST" class="inline"
-                                        onsubmit="return confirm('Are you sure you want to delete this bicycle?');">
+                                        onsubmit="return confirm('Ar tikrai norite ištrinti šį dviratį?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"

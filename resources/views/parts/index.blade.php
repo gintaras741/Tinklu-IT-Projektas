@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Browse Parts')
+@section('title', 'Naršyti dalis')
 
 @section('content')
     @php($status = session('status'))
@@ -8,7 +8,7 @@
 
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Browse Parts</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Naršyti dalis</h1>
         </div>
 
         @if ($status)
@@ -30,8 +30,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                 </svg>
-                <h3 class="text-lg font-medium text-gray-900 mb-2">No parts available</h3>
-                <p class="text-gray-500">Check back later for available bicycle parts.</p>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Dalių nėra</h3>
+                <p class="text-gray-500">Užsukite vėliau dėl dviračių dalių.</p>
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -58,9 +58,9 @@
 
                             <div class="space-y-2 mb-4">
                                 <div class="flex items-center justify-between text-sm">
-                                    <span class="text-gray-600">In Stock:</span>
+                                    <span class="text-gray-600">Sandėlyje:</span>
                                     <span class="font-medium {{ $part->isInStock() ? 'text-green-600' : 'text-red-600' }}">
-                                        {{ $part->quantity }} units
+                                        {{ $part->quantity }} vnt.
                                     </span>
                                 </div>
                             </div>
@@ -76,13 +76,13 @@
                                             <path
                                                 d="M1 1.75A.75.75 0 011.75 1h1.628a1.75 1.75 0 011.734 1.51L5.18 3a65.25 65.25 0 0113.36 1.412.75.75 0 01.58.875 48.645 48.645 0 01-1.618 6.2.75.75 0 01-.712.513H6a2.503 2.503 0 00-2.292 1.5H17.25a.75.75 0 010 1.5H2.76a.75.75 0 01-.748-.807 4.002 4.002 0 012.716-3.486L3.626 2.716a.25.25 0 00-.248-.216H1.75A.75.75 0 011 1.75zM6 17.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15.5 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
                                         </svg>
-                                        Add to Cart
+                                        Pridėti į krepšelį
                                     </button>
                                 </form>
                             @else
                                 <button disabled
                                     class="w-full inline-flex justify-center items-center rounded-md bg-gray-300 px-4 py-2 text-sm font-medium text-gray-500 cursor-not-allowed">
-                                    Out of Stock
+                                    Nėra sandėlyje
                                 </button>
                             @endif
                         </div>

@@ -4,9 +4,9 @@
         class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div class="p-6">
             <div class="text-center mb-6">
-                <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">{{ __('Forgot Password') }}</h1>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Pamiršote slaptažodį</h1>
                 <p class="text-gray-600 dark:text-gray-400 mt-1">
-                    {{ __('Enter your email to receive a password reset link') }}</p>
+                    Įveskite savo el. paštą, kad gautumėte slaptažodžio atkūrimo nuorodą</p>
             </div>
 
             @if (session('status'))
@@ -19,19 +19,19 @@
                 @csrf
                 <!-- Email Input -->
                 <div class="mb-4">
-                    <x-forms.input name="email" type="email" label="Email" placeholder="your@email.com" />
+                    <x-forms.input name="email" type="email" label="El. paštas" placeholder="jusu@pastas.lt" />
                 </div>
 
                 <!-- Send Reset Link Button -->
                 <x-button type="primary" buttonType="submit" class="w-full">
-                    {{ __('Send Password Reset Link') }}
+                    Siųsti slaptažodžio atkūrimo nuorodą
                 </x-button>
             </form>
 
             <!-- Back to Login Link -->
             <div class="text-center mt-6">
                 <a href="{{ route('login') }}"
-                    class="text-blue-600 dark:text-blue-400 hover:underline font-medium">{{ __('Back to login') }}</a>
+                    class="text-blue-600 dark:text-blue-400 hover:underline font-medium">Grįžti į prisijungimą</a>
             </div>
         </div>
     </div>

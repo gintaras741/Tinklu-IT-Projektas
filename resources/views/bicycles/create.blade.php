@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Build New Bicycle')
+@section('title', 'Sukurti naują dviratį')
 
 @section('content')
     <div class="max-w-4xl mx-auto">
@@ -12,9 +12,9 @@
                         d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z"
                         clip-rule="evenodd" />
                 </svg>
-                Back to My Bicycles
+                Grįžti į mano dviračius
             </a>
-            <h1 class="text-3xl font-semibold text-gray-900">Build New Bicycle</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Sukurti naują dviratį</h1>
         </div>
 
         @if (session('error'))
@@ -27,13 +27,13 @@
             @csrf
 
             <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Bicycle Details</h2>
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Dviračio detalės</h2>
 
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Bicycle Name</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Dviračio pavadinimas</label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}"
                         class="block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        placeholder="e.g., My Mountain Bike" required>
+                        placeholder="pvz., Mano kalnų dviratis" required>
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -42,14 +42,14 @@
 
             <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-semibold text-gray-900">Select Components</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">Pasirinkti komponentus</h2>
                     <button type="button" onclick="addComponent()"
                         class="inline-flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-500">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                             <path
                                 d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                         </svg>
-                        Add Component
+                        Pridėti komponentą
                     </button>
                 </div>
 
@@ -64,12 +64,12 @@
                         @foreach (old('components') as $index => $component)
                             <div class="component-row flex gap-3 items-start p-4 bg-gray-50 rounded-lg">
                                 <div class="flex-1">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Part</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Dalis</label>
                                     <div class="flex gap-3">
                                         <select name="components[{{ $index }}][bicycle_part_id]"
                                             class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             onchange="updatePartImage(this)" required>
-                                            <option value="">Select a part...</option>
+                                            <option value="">Pasirinkite dalį...</option>
                                             @foreach ($types as $type)
                                                 @if (isset($partsByType[$type->value]))
                                                     <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
@@ -78,7 +78,7 @@
                                                                 data-max="{{ $part->amount }}"
                                                                 data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}"
                                                                 {{ old("components.$index.bicycle_part_id") == $part->id ? 'selected' : '' }}>
-                                                                {{ $part->name }} ({{ $part->amount }} available)
+                                                                {{ $part->name }} ({{ $part->amount }} turima)
                                                             </option>
                                                         @endforeach
                                                     </optgroup>
@@ -104,7 +104,7 @@
                                 </div>
 
                                 <div class="w-32">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Kiekis</label>
                                     <input type="number" name="components[{{ $index }}][quantity]"
                                         value="{{ old("components.$index.quantity", 1) }}" min="1"
                                         class="quantity-input block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
@@ -131,18 +131,18 @@
                 </div>
 
                 <div id="empty-state" class="text-center py-8 text-gray-500" style="display: none;">
-                    <p>No components added yet. Click "Add Component" to start building your bicycle.</p>
+                    <p>Dar nepridėta jokių komponentų. Paspauskite "Pridėti komponentą", kad pradėtumėte kurti dvirati.</p>
                 </div>
             </div>
 
             <div class="flex gap-3">
                 <button type="submit"
                     class="flex-1 inline-flex justify-center items-center rounded-md bg-indigo-600 px-4 py-2 text-white shadow hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                    Create Bicycle
+                    Sukurti dvirati
                 </button>
                 <a href="{{ route('bicycles.index') }}"
                     class="inline-flex items-center rounded-md bg-white border border-gray-300 px-4 py-2 text-gray-700 shadow-sm hover:bg-gray-50">
-                    Cancel
+                    Atšaukti
                 </a>
             </div>
         </form>
@@ -158,12 +158,12 @@
             const componentHtml = `
                 <div class="component-row flex gap-3 items-start p-4 bg-gray-50 rounded-lg">
                     <div class="flex-1">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Part</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Dalis</label>
                         <div class="flex gap-3">
                             <select name="components[${componentIndex}][bicycle_part_id]"
                                 class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 onchange="updatePartImage(this)" required>
-                                <option value="">Select a part...</option>
+                                <option value="">Pasirinkite dalį...</option>
                                 @foreach ($types as $type)
                                     @if (isset($partsByType[$type->value]))
                                         <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
@@ -190,7 +190,7 @@
                     </div>
 
                     <div class="w-32">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Kiekis</label>
                         <input type="number" name="components[${componentIndex}][quantity]" value="1" min="1"
                             class="quantity-input block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             required>

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Create Part')
+@section('title', 'Sukurti dalį')
 
 @section('content')
     <div class="max-w-3xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Create Part</h1>
-            <p class="mt-1 text-gray-600 text-sm">Add a new bicycle part to warehouse inventory.</p>
+            <h1 class="text-3xl font-semibold text-gray-900">Sukurti dalį</h1>
+            <p class="mt-1 text-gray-600 text-sm">Pridėkite naują dviračio dalį į sandėlio inventorių.</p>
         </div>
 
         <form action="{{ route('warehouse.store') }}" method="POST" enctype="multipart/form-data"
@@ -14,7 +14,7 @@
             @csrf
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Type</label>
+                <label class="block text-sm font-medium text-gray-700">Tipas</label>
                 <select name="type"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     @foreach ($types as $type)
@@ -28,7 +28,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <label class="block text-sm font-medium text-gray-700">Pavadinimas</label>
                 <input type="text" name="name" value="{{ old('name') }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Amount</label>
+                <label class="block text-sm font-medium text-gray-700">Kiekis</label>
                 <input type="number" min="0" name="amount" value="{{ old('amount', 0) }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Price (€)</label>
+                <label class="block text-sm font-medium text-gray-700">Kaina (€)</label>
                 <input type="number" step="0.01" min="0" name="price" value="{{ old('price', 0) }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Description (optional)</label>
+                <label class="block text-sm font-medium text-gray-700">Aprašymas (neprivaloma)</label>
                 <textarea name="description" rows="3"
                     class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('description') }}</textarea>
                 @error('description')
@@ -67,7 +67,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Image (optional)</label>
+                <label class="block text-sm font-medium text-gray-700">Nuotrauka (neprivaloma)</label>
                 <input type="file" name="image" accept="image/*"
                     class="mt-1 block w-full text-base text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 file:mr-4 file:rounded-md file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-indigo-700 hover:file:bg-indigo-100">
                 @error('image')
@@ -77,9 +77,9 @@
 
             <div class="flex gap-3 pt-2">
                 <a href="{{ route('warehouse.index') }}"
-                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">Cancel</a>
+                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">Atšaukti</a>
                 <button
-                    class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">Create</button>
+                    class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">Sukurti</button>
             </div>
         </form>
     </div>

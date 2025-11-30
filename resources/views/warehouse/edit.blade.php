@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Part')
+@section('title', 'Redaguoti dalį')
 
 @section('content')
     <div class="max-w-3xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Edit Part #{{ $part->id }}</h1>
-            <p class="mt-1 text-gray-600 text-sm">Update details or image for this bicycle part.</p>
+            <h1 class="text-3xl font-semibold text-gray-900">Redaguoti dalį #{{ $part->id }}</h1>
+            <p class="mt-1 text-gray-600 text-sm">Atnaujinkite šios dviračio dalies informaciją ar nuotrauką.</p>
         </div>
 
         <form action="{{ route('warehouse.update', $part) }}" method="POST" enctype="multipart/form-data"
@@ -15,7 +15,7 @@
             @method('PUT')
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Type</label>
+                <label class="block text-sm font-medium text-gray-700">Tipas</label>
                 <select name="type"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     @foreach ($types as $type)
@@ -29,7 +29,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <label class="block text-sm font-medium text-gray-700">Pavadinimas</label>
                 <input type="text" name="name" value="{{ old('name', $part->name) }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Amount</label>
+                <label class="block text-sm font-medium text-gray-700">Kiekis</label>
                 <input type="number" min="0" name="amount" value="{{ old('amount', $part->amount) }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -49,7 +49,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Price (€)</label>
+                <label class="block text-sm font-medium text-gray-700">Kaina (€)</label>
                 <input type="number" step="0.01" min="0" name="price" value="{{ old('price', $part->price) }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Description (optional)</label>
+                <label class="block text-sm font-medium text-gray-700">Aprašymas (neprivaloma)</label>
                 <textarea name="description" rows="3"
                     class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('description', $part->description) }}</textarea>
                 @error('description')
@@ -68,12 +68,12 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-sm font-medium text-gray-700">Image (optional)</label>
+                <label class="block text-sm font-medium text-gray-700">Nuotrauka (neprivaloma)</label>
                 @if ($part->image)
                     <div class="flex items-center gap-3 mb-2">
                         <img src="{{ asset('storage/' . $part->image) }}" alt="{{ $part->name }}"
                             class="h-16 w-16 object-cover rounded">
-                        <span class="text-sm text-gray-600">Current image</span>
+                        <span class="text-sm text-gray-600">Dabartinė nuotrauka</span>
                     </div>
                 @endif
                 <input type="file" name="image" accept="image/*"
@@ -85,9 +85,9 @@
 
             <div class="flex gap-3 pt-2">
                 <a href="{{ route('warehouse.index') }}"
-                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">Cancel</a>
+                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">Atšaukti</a>
                 <button
-                    class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">Save</button>
+                    class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">Išsaugoti</button>
             </div>
         </form>
     </div>

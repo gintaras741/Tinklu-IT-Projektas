@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'My Orders')
+@section('title', 'Mano užsakymai')
 
 @section('content')
     @php($status = session('status'))
 
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">My Orders</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Mano užsakymai</h1>
         </div>
 
         @if ($status)
@@ -22,12 +22,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <h3 class="text-lg font-medium text-gray-900 mb-2">No orders yet</h3>
-                <p class="text-gray-500 mb-6">Start shopping to create your first order!</p>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Užsakymų dar nėra</h3>
+                <p class="text-gray-500 mb-6">Pradėkite apsipirkti, kad sukurtumėte pirmąjį užsakymą!</p>
                 <div>
                     <a href="{{ route('parts.index') }}"
                         class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500">
-                        Browse Parts
+                        Naršyti dalis
                     </a>
                 </div>
             </div>
@@ -52,8 +52,8 @@
                                         </div>
                                     </div>
                                     <div class="mt-2 flex items-center justify-between text-sm text-gray-500">
-                                        <p>{{ $order->partItems->count() + $order->bicycleItems->count() }} item(s)</p>
-                                        <p>Ordered on {{ $order->ordered_at->format('M d, Y') }}</p>
+                                        <p>{{ $order->partItems->count() + $order->bicycleItems->count() }} prekė(-s)</p>
+                                        <p>Užsakyta {{ $order->ordered_at->format('Y m. M d') }}</p>
                                     </div>
                                 </div>
                             </a>

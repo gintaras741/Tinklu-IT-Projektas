@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Edit User')
+@section('title', 'Redaguoti vartotoją')
 
 @section('content')
     <div class="max-w-3xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Edit User</h1>
-            <p class="mt-1 text-gray-600 text-sm">Update user information and permissions.</p>
+            <h1 class="text-3xl font-semibold text-gray-900">Redaguoti vartotoją</h1>
+            <p class="mt-1 text-gray-600 text-sm">Atnaujinti vartotojo informaciją ir leidimus.</p>
         </div>
 
         <form action="{{ route('admin.users.update', $user) }}" method="POST"
@@ -16,7 +16,7 @@
 
             <!-- Name -->
             <div class="space-y-1">
-                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <label for="name" class="block text-sm font-medium text-gray-700">Vardas</label>
                 <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -27,7 +27,7 @@
 
             <!-- Email -->
             <div class="space-y-1">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <label for="email" class="block text-sm font-medium text-gray-700">El. paštas</label>
                 <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -38,7 +38,7 @@
 
             <!-- Role -->
             <div class="space-y-1">
-                <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                <label for="role" class="block text-sm font-medium text-gray-700">Rolė</label>
                 <select id="role" name="role"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required>
@@ -58,31 +58,31 @@
                                 d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
                                 clip-rule="evenodd" />
                         </svg>
-                        This is the last admin account. Be careful when changing roles.
+                        Tai paskutinė administratoriaus paskyra. Būkite atsargūs keisdami roles.
                     </p>
                 @endif
             </div>
 
             <!-- Password Section -->
             <div class="border-t border-gray-200 pt-6 space-y-4">
-                <h3 class="text-sm font-medium text-gray-700">Change Password (Optional)</h3>
-                <p class="text-xs text-gray-500">Leave blank to keep the current password.</p>
+                <h3 class="text-sm font-medium text-gray-700">Keisti slaptažodį (neprivaloma)</h3>
+                <p class="text-xs text-gray-500">Palikite tuščią, jei norite išsaugoti dabartinį slaptažodį.</p>
 
                 <!-- New Password -->
                 <div class="space-y-1">
-                    <label for="password" class="block text-sm font-medium text-gray-700">New Password</label>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Naujas slaptažodis</label>
                     <input type="password" id="password" name="password"
                         class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     @error('password')
                         <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
                     @enderror
-                    <p class="text-xs text-gray-500">Minimum 8 characters</p>
+                    <p class="text-xs text-gray-500">Mažiausiai 8 simboliai</p>
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="space-y-1">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm New
-                        Password</label>
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Patvirtinti naują
+                        slaptažodį</label>
                     <input type="password" id="password_confirmation" name="password_confirmation"
                         class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>

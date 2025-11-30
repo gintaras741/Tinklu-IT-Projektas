@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Ask a Question')
+@section('title', 'Užduoti klausimą')
 
 @section('content')
     <div class="max-w-3xl mx-auto">
@@ -10,25 +10,25 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to FAQ
+                Grįžti į DUK
             </a>
         </div>
 
         <div class="rounded-xl border border-gray-200 bg-white shadow-sm p-6">
-            <h1 class="text-2xl font-bold text-gray-900 mb-6">Ask a Question</h1>
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Užduoti klausimą</h1>
 
             <form method="POST" action="{{ route('questions.store') }}">
                 @csrf
 
                 <div class="mb-6">
                     <label for="text" class="block text-sm font-medium text-gray-700 mb-2">
-                        Your Question <span class="text-red-500">*</span>
+                        Jūsų klausimas <span class="text-red-500">*</span>
                     </label>
                     <textarea id="text" name="text" rows="6" required maxlength="1000"
-                        placeholder="Please describe your question in detail..."
+                        placeholder="Prašome detaliai aprašyti savo klausimą..."
                         class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-3 text-base @error('text') border-red-500 @enderror">{{ old('text') }}</textarea>
                     <p class="mt-1 text-sm text-gray-500">
-                        Minimum 10 characters, maximum 1000 characters
+                        Mažiausiai 10 simbolių, daugiausiai 1000 simbolių
                     </p>
                     @error('text')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -43,11 +43,11 @@
                                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <div class="text-sm text-blue-800">
-                            <p class="font-medium mb-1">Before asking:</p>
+                            <p class="font-medium mb-1">Prieš užduodant:</p>
                             <ul class="list-disc list-inside space-y-1">
-                                <li>Check if your question has already been answered</li>
-                                <li>Be as specific as possible</li>
-                                <li>Our admin or worker team will respond as soon as possible</li>
+                                <li>Patikrinkite, ar į jūsų klausimą jau buvo atsakyta</li>
+                                <li>Būkite kuo konkretesni</li>
+                                <li>Mūsų administratorių ar darbuotojų komanda atsakys kuo greičiau</li>
                             </ul>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                         </svg>
-                        Submit Question
+                        Pateikti klausimą
                     </button>
                     <a href="{{ route('questions.index') }}"
                         class="inline-flex items-center rounded-md bg-gray-200 px-6 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-300 transition-colors">

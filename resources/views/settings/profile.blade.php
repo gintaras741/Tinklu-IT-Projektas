@@ -37,12 +37,12 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-4">
-                                <x-forms.input label="Name" name="name" type="text"
+                                <x-forms.input label="Vardas" name="name" type="text"
                                     value="{{ old('name', $user->name) }}" />
                             </div>
 
                             <div class="mb-6">
-                                <x-forms.input label="Email" name="email" type="email"
+                                <x-forms.input label="El. paštas" name="email" type="email"
                                     value="{{ old('email', $user->email) }}" />
                             </div>
 
@@ -60,7 +60,7 @@
                                 {{ __('Delete your account and all of its resources') }}
                             </p>
                             <form action="{{ route('settings.profile.destroy') }}" method="POST"
-                                onsubmit="return confirm('{{ __('Are you sure you want to delete your account?') }}')">
+                                onsubmit="return confirm('Ar tikrai norite ištrinti savo paskyrą?');">
                                 @csrf
                                 @method('DELETE')
                                 <x-button type="danger">{{ __('Delete account') }}</x-button>

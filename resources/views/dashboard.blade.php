@@ -9,7 +9,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Total Users') }}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Iš viso naudotojų</p>
                     <p class="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-1">--</p>
                     <p class="text-xs text-gray-500 flex items-center mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -17,7 +17,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 10l7-7m0 0l7 7m-7-7v18" />
                         </svg>
-                        {{ __('No data') }}
+                        Duomenų nėra
                     </p>
                 </div>
                 <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
@@ -34,7 +34,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Total Revenue') }}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Bendros pajamos</p>
                     <p class="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-1">--</p>
                     <p class="text-xs text-gray-500 flex items-center mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -42,7 +42,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 10l7-7m0 0l7 7m-7-7v18" />
                         </svg>
-                        {{ __('No data') }}
+                        Duomenų nėra
                     </p>
                 </div>
                 <div class="bg-green-100 dark:bg-green-900 p-3 rounded-full">
@@ -59,7 +59,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Total Orders') }}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Iš viso užsakymų</p>
                     <p class="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-1">--</p>
                     <p class="text-xs text-gray-500 flex items-center mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -67,7 +67,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                         </svg>
-                        {{ __('No data') }}
+                        Duomenų nėra
                     </p>
                 </div>
                 <div class="bg-purple-100 dark:bg-purple-900 p-3 rounded-full">
@@ -84,7 +84,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border border-gray-200 dark:border-gray-700">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Total Visitors') }}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Iš viso lankytojų</p>
                     <p class="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-1">--</p>
                     <p class="text-xs text-gray-500 flex items-center mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
@@ -92,7 +92,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 10l7-7m0 0l7 7m-7-7v18" />
                         </svg>
-                        {{ __('No data') }}
+                        Duomenų nėra
                     </p>
                 </div>
                 <div class="bg-orange-100 dark:bg-orange-900 p-3 rounded-full">

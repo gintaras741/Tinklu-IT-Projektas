@@ -39,15 +39,15 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-4">
-                                <x-forms.input label="Current Password" name="current_password" type="password" />
+                                <x-forms.input label="Dabartinis slaptažodis" name="current_password" type="password" />
                             </div>
 
                             <div class="mb-6">
-                                <x-forms.input label="New Password" name="password" type="password" />
+                                <x-forms.input label="Naujas slaptažodis" name="password" type="password" />
                             </div>
 
                             <div class="mb-6">
-                                <x-forms.input label="Confirm Password" name="password_confirmation" type="password" />
+                                <x-forms.input label="Patvirtinkite slaptažodį" name="password_confirmation" type="password" />
                             </div>
 
                             <div>

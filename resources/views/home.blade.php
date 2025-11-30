@@ -1,20 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Pagrindinis')
 
 @section('content')
     <!-- Hero Section -->
     <div class="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white shadow-lg mb-8">
         <div class="text-center">
-            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Welcome to the Bicycle Shop</h1>
-            <p class="mt-4 text-lg text-indigo-100">Build custom bicycles, order parts, and track your orders all in one
-                place.</p>
+            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Sveiki atvykę į dviračių parduotuvę</h1>
+            <p class="mt-4 text-lg text-indigo-100">Kurkite individualius dviračius, užsakykite dalis ir sekite savo užsakymus vienoje vietoje.</p>
         </div>
     </div>
 
     <!-- Quick Actions -->
     <div class="mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Quick Actions</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Greitųjų veiksmų meniu</h2>
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <!-- Browse Parts -->
             <a href="{{ route('parts.index') }}" <a href="{{ route('parts.index') }}"
@@ -27,8 +26,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">Browse Parts</h3>
-                <p class="mt-1 text-sm text-gray-500">View available parts</p>
+                <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600">Naršyti dalis</h3>
+                <p class="mt-1 text-sm text-gray-500">Peržiūrėti galimas dalis</p>
             </a>
 
             <!-- Shopping Cart -->
@@ -42,8 +41,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="font-semibold text-gray-900 group-hover:text-green-600">Shopping Cart</h3>
-                <p class="mt-1 text-sm text-gray-500">View your cart</p>
+                <h3 class="font-semibold text-gray-900 group-hover:text-green-600">Pirkinų krepšelis</h3>
+                <p class="mt-1 text-sm text-gray-500">Peržiūrėti krepšelį</p>
             </a>
 
             <!-- My Orders -->
@@ -57,8 +56,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="font-semibold text-gray-900 group-hover:text-blue-600">My Orders</h3>
-                <p class="mt-1 text-sm text-gray-500">Track orders</p>
+                <h3 class="font-semibold text-gray-900 group-hover:text-blue-600">Mano užsakymai</h3>
+                <p class="mt-1 text-sm text-gray-500">Sekti užsakymus</p>
             </a>
 
             <!-- My Bicycles -->
@@ -72,8 +71,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="font-semibold text-gray-900 group-hover:text-purple-600">My Bicycles</h3>
-                <p class="mt-1 text-sm text-gray-500">Manage builds</p>
+                <h3 class="font-semibold text-gray-900 group-hover:text-purple-600">Mano dviračiai</h3>
+                <p class="mt-1 text-sm text-gray-500">Valdyti konstrukcijas</p>
             </a>
 
             <!-- Alerts -->
@@ -92,8 +91,8 @@
                         @endif
                     </div>
                 </div>
-                <h3 class="font-semibold text-gray-900 group-hover:text-red-600">Alerts</h3>
-                <p class="mt-1 text-sm text-gray-500">View notifications</p>
+                <h3 class="font-semibold text-gray-900 group-hover:text-red-600">Pranešimai</h3>
+                <p class="mt-1 text-sm text-gray-500">Peržiūrėti pranešimus</p>
             </a>
 
             <!-- FAQ -->
@@ -107,8 +106,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="font-semibold text-gray-900 group-hover:text-yellow-600">FAQ</h3>
-                <p class="mt-1 text-sm text-gray-500">Ask questions</p>
+                <h3 class="font-semibold text-gray-900 group-hover:text-yellow-600">DUK</h3>
+                <p class="mt-1 text-sm text-gray-500">Užduoti klausimus</p>
             </a>
         </div>
     </div>
@@ -117,7 +116,7 @@
         @if (auth()->user()->hasRole([\App\Enums\Role::Admin, \App\Enums\Role::Worker]))
             <!-- Admin Section -->
             <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">Admin Tools</h2>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Administravimo įrankiai</h2>
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <!-- Warehouse Management -->
                     <a href="{{ route('warehouse.index') }}"
@@ -130,8 +129,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="font-semibold text-gray-900 group-hover:text-orange-600">Warehouse</h3>
-                        <p class="mt-1 text-sm text-gray-500">Manage inventory</p>
+                        <h3 class="font-semibold text-gray-900 group-hover:text-orange-600">Sandėlis</h3>
+                        <p class="mt-1 text-sm text-gray-500">Valdyti inventorių</p>
                     </a>
 
                     <!-- Order Management -->
@@ -145,8 +144,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="font-semibold text-gray-900 group-hover:text-red-600">Manage Orders</h3>
-                        <p class="mt-1 text-sm text-gray-500">View all orders</p>
+                        <h3 class="font-semibold text-gray-900 group-hover:text-red-600">Valdyti užsakymus</h3>
+                        <p class="mt-1 text-sm text-gray-500">Peržiūrėti visus užsakymus</p>
                     </a>
 
                     <!-- Statistics -->
@@ -160,8 +159,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="font-semibold text-gray-900 group-hover:text-teal-600">Statistics</h3>
-                        <p class="mt-1 text-sm text-gray-500">View metrics</p>
+                        <h3 class="font-semibold text-gray-900 group-hover:text-teal-600">Statistika</h3>
+                        <p class="mt-1 text-sm text-gray-500">Peržiūrėti metrikas</p>
                     </a>
 
                     @if (auth()->user()->isAdmin())
@@ -177,8 +176,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h3 class="font-semibold text-gray-900 group-hover:text-cyan-600">Manage Users</h3>
-                            <p class="mt-1 text-sm text-gray-500">View & edit users</p>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-cyan-600">Valdyti naudotojus</h3>
+                            <p class="mt-1 text-sm text-gray-500">Peržiūrėti ir redaguoti naudotojus</p>
                         </a>
                     @endif
                 </div>

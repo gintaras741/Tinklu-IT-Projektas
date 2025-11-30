@@ -3,13 +3,13 @@
         <div class="md:flex md:items-center md:justify-between">
             <div class="min-w-0 flex-1">
                 <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                    Order Statistics
+                    Užsakymų statistika
                 </h2>
             </div>
             <div class="mt-4 flex md:ml-4 md:mt-0">
                 <a href="{{ route('admin.orders.index') }}"
                     class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                    Back to Orders
+                    Grįžti į užsakymus
                 </a>
             </div>
         </div>
@@ -18,44 +18,44 @@
         <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <!-- Total Orders -->
             <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                <dt class="truncate text-sm font-medium text-gray-500">Total Orders</dt>
+                <dt class="truncate text-sm font-medium text-gray-500">Iš viso užsakymų</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{{ $totalOrders }}</dd>
             </div>
 
             <!-- Total Revenue -->
             <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                <dt class="truncate text-sm font-medium text-gray-500">Total Revenue</dt>
+                <dt class="truncate text-sm font-medium text-gray-500">Iš viso pajamų</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-green-600">
                     €{{ number_format($totalRevenue, 2) }}</dd>
             </div>
 
             <!-- Pending Orders -->
             <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                <dt class="truncate text-sm font-medium text-gray-500">Pending</dt>
+                <dt class="truncate text-sm font-medium text-gray-500">Laukiama</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-yellow-600">{{ $pendingOrders }}</dd>
             </div>
 
             <!-- Processing Orders -->
             <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                <dt class="truncate text-sm font-medium text-gray-500">Processing</dt>
+                <dt class="truncate text-sm font-medium text-gray-500">Vykdoma</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-600">{{ $processingOrders }}</dd>
             </div>
 
             <!-- Shipped Orders -->
             <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                <dt class="truncate text-sm font-medium text-gray-500">Shipped</dt>
+                <dt class="truncate text-sm font-medium text-gray-500">Išsiųsta</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-purple-600">{{ $shippedOrders }}</dd>
             </div>
 
             <!-- Delivered Orders -->
             <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                <dt class="truncate text-sm font-medium text-gray-500">Delivered</dt>
+                <dt class="truncate text-sm font-medium text-gray-500">Pristatyta</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-green-600">{{ $deliveredOrders }}</dd>
             </div>
 
             <!-- Cancelled Orders -->
             <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                <dt class="truncate text-sm font-medium text-gray-500">Cancelled</dt>
+                <dt class="truncate text-sm font-medium text-gray-500">Atšaukta</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-red-600">{{ $cancelledOrders }}</dd>
             </div>
         </div>
@@ -64,10 +64,10 @@
         <div class="mt-8">
             <div class="rounded-lg bg-white shadow">
                 <div class="px-4 py-5 sm:p-6">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Recent Orders</h3>
+                    <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Naujausi užsakymai</h3>
 
                     @if ($recentOrders->isEmpty())
-                        <p class="text-sm text-gray-500">No recent orders.</p>
+                        <p class="text-sm text-gray-500">Nėra naujiausių užsakymų.</p>
                     @else
                         <div class="overflow-hidden">
                             <ul role="list" class="divide-y divide-gray-200">

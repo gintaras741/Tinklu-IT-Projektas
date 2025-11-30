@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Checkout')
+@section('title', 'Atsiskaitymas')
 
 @section('content')
     @php($error = session('error'))
 
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Checkout</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Atsiskaitymas</h1>
         </div>
 
         @if ($error)
@@ -22,15 +22,15 @@
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
                 <!-- Order Form -->
                 <div class="lg:col-span-2 space-y-6">
-                    <!-- Shipping Address -->
+                    <!-- Pristatymo adresas -->
                     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200">
-                            <h3 class="text-lg font-semibold text-gray-900">Shipping Address</h3>
+                            <h3 class="text-lg font-semibold text-gray-900">Pristatymo adresas</h3>
                         </div>
                         <div class="p-6">
                             <div>
                                 <label for="shipping_address"
-                                    class="block text-sm font-medium text-gray-700">Address</label>
+                                    class="block text-sm font-medium text-gray-700">Adresas</label>
                                 <textarea id="shipping_address" name="shipping_address" rows="3" required
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">{{ old('shipping_address') }}</textarea>
                                 @error('shipping_address')
@@ -43,7 +43,7 @@
                     <!-- Additional Notes -->
                     <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-200">
-                            <h3 class="text-lg font-semibold text-gray-900">Additional Notes</h3>
+                            <h3 class="text-lg font-semibold text-gray-900">Papildomi prašymai</h3>
                         </div>
                         <div class="p-6">
                             <div>
@@ -61,7 +61,7 @@
                     <!-- Order Items -->
                     <div class="rounded-lg bg-white shadow">
                         <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Order Items</h3>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Užsakymo prekės</h3>
 
                             @if ($partItems->isNotEmpty())
                                 <div class="mb-4">
@@ -102,18 +102,18 @@
                 <div class="lg:col-span-1">
                     <div class="rounded-lg bg-white shadow sticky top-4">
                         <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Order Summary</h3>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Užsakymo santrauka</h3>
                             <div class="space-y-2 mb-4">
                                 <div class="flex justify-between text-base text-gray-600">
                                     <p>Subtotal</p>
                                     <p>€{{ number_format($total, 2) }}</p>
                                 </div>
                                 <div class="flex justify-between text-base text-gray-600">
-                                    <p>Shipping</p>
+                                    <p>Pristatymas</p>
                                     <p>€0.00</p>
                                 </div>
                                 <div class="border-t pt-2 flex justify-between text-lg font-bold text-gray-900">
-                                    <p>Total</p>
+                                    <p>Iš viso</p>
                                     <p>€{{ number_format($total, 2) }}</p>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                             <div class="mt-3">
                                 <a href="{{ route('cart.index') }}"
                                     class="w-full flex justify-center items-center rounded-md border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                                    Back to Cart
+                                    Atgal į Krepšelį
                                 </a>
                             </div>
                         </div>

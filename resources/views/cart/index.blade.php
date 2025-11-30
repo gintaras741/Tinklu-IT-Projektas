@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Shopping Cart')
+@section('title', 'Pirkinų krepšelis')
 
 @section('content')
     @php($status = session('status'))
@@ -8,7 +8,7 @@
 
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Shopping Cart</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Pirkinų krepšelis</h1>
         </div>
 
         @if ($status)
@@ -29,16 +29,16 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
-                <h3 class="text-lg font-medium text-gray-900 mb-2">Your cart is empty</h3>
-                <p class="text-gray-500 mb-6">Start adding parts or bicycles to your cart!</p>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Jūsų krepšelis tuščias</h3>
+                <p class="text-gray-500 mb-6">Pradėkite pridėti dalis arba dviračius į savo krepšelį!</p>
                 <div class="flex gap-3 justify-center">
                     <a href="{{ route('parts.index') }}"
                         class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500">
-                        Browse Parts
+                        Naršyti dalis
                     </a>
                     <a href="{{ route('bicycles.index') }}"
                         class="inline-flex items-center rounded-md bg-white border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">
-                        My Bicycles
+                        Mano dviračiai
                     </a>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     @if ($partItems->isNotEmpty())
                         <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                             <div class="px-6 py-4 border-b border-gray-200">
-                                <h3 class="text-lg font-semibold text-gray-900">Parts</h3>
+                                <h3 class="text-lg font-semibold text-gray-900">Dalys</h3>
                             </div>
                             <div class="p-6">
                                 <div class="space-y-4">
@@ -69,9 +69,9 @@
                                                 <div>
                                                     <p class="font-medium text-gray-900">{{ $item->part->name }}</p>
                                                     <p class="text-sm text-gray-500">{{ $item->part->type->value }}</p>
-                                                    <p class="text-sm text-gray-600">Quantity: {{ $item->amount }}</p>
+                                                    <p class="text-sm text-gray-600">Kiekis: {{ $item->amount }}</p>
                                                     <p class="text-sm font-medium text-gray-900">
-                                                        €{{ number_format($item->part->price, 2) }} each</p>
+                                                        €{{ number_format($item->part->price, 2) }} vnt.</p>
                                                 </div>
                                             </div>
                                             <div class="flex items-center space-x-4">
@@ -110,10 +110,10 @@
                                             <div>
                                                 <p class="font-medium text-gray-900">{{ $item->bicycle->name }}</p>
                                                 <p class="text-sm text-gray-500">{{ $item->bicycle->components->count() }}
-                                                    components</p>
-                                                <p class="text-sm text-gray-600">Quantity: {{ $item->amount }}</p>
-                                                <p class="text-sm font-medium text-gray-900">
-                                                    €{{ number_format($item->bicycle->calculatePrice(), 2) }} each</p>
+                                                    komponentų</p>
+                                                <p class="text-sm text-gray-600">Kiekis: {{ $item->amount }}</p>
+                                                    <p class="text-sm font-medium text-gray-900">
+                                                    €{{ number_format($item->bicycle->calculatePrice(), 2) }} vnt.</p>
                                             </div>
                                             <div class="flex items-center space-x-4">
                                                 <form method="POST"
@@ -150,24 +150,24 @@
                         <div class="p-6">
                             <div class="space-y-2">
                                 <div class="flex justify-between text-base font-medium text-gray-900">
-                                    <p>Total</p>
+                                    <p>Iš viso</p>
                                     <p>€{{ number_format($total, 2) }}</p>
                                 </div>
                             </div>
                             <div class="mt-6">
                                 <a href="{{ route('orders.create') }}"
                                     class="w-full flex justify-center items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
-                                    Proceed to Checkout
+                                    Pereiti prie atsiskaitymo
                                 </a>
                             </div>
                             <div class="mt-3">
                                 <form method="POST" action="{{ route('cart.clear') }}"
-                                    onsubmit="return confirm('Are you sure you want to clear your cart?');">
+                                    onsubmit="return confirm('Ar tikrai norite išvalyti krepšelį?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         class="w-full flex justify-center items-center rounded-md border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                                        Clear Cart
+                                        Išvalyti krepšelį
                                     </button>
                                 </form>
                             </div>

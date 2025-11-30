@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', 'Manage Orders')
+@section('title', 'Valdyti užsakymus')
 
 @section('content')
     @php($status = session('status'))
 
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-semibold text-gray-900">Manage Orders</h1>
+            <h1 class="text-3xl font-semibold text-gray-900">Valdyti užsakymus</h1>
             <a href="{{ route('admin.orders.statistics') }}"
                 class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500 transition-colors">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
-                View Statistics
+                Žiūrėti statistiką
             </a>
         </div>
 
@@ -30,8 +30,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <h3 class="text-lg font-medium text-gray-900 mb-2">No orders found</h3>
-                <p class="text-gray-500">Orders will appear here once customers start placing them.</p>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Užsakymų nerasta</h3>
+                <p class="text-gray-500">Užsakymai bus rodomi čia, kai klientai pradės juos teikti.</p>
             </div>
         @else
             <div class="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
@@ -56,9 +56,9 @@
                                     </div>
                                     <div class="mt-2 flex items-center justify-between text-sm text-gray-500">
                                         <div class="flex items-center gap-4">
-                                            <p>Customer: <span
+                                            <p>Klientas: <span
                                                     class="font-medium text-gray-700">{{ $order->user->name }}</span></p>
-                                            <p>{{ $order->partItems->count() + $order->bicycleItems->count() }} item(s)</p>
+                                            <p>{{ $order->partItems->count() + $order->bicycleItems->count() }} prekė(-s)</p>
                                         </div>
                                         <p>{{ $order->ordered_at->format('M d, Y H:i') }}</p>
                                     </div>

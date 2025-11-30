@@ -23,14 +23,15 @@
             </div>
         @endif
 
-        <form action="{{ route('bicycles.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('bicycles.store') }}" method="POST" class="space-y-6" id="bicycle-form">
             @csrf
 
             <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Dviračio detalės</h2>
 
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Dviračio pavadinimas</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Dviračio
+                        pavadinimas</label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}"
                         class="block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         placeholder="pvz., Mano kalnų dviratis" required>
@@ -68,7 +69,7 @@
                                     <div class="flex gap-3">
                                         <select name="components[{{ $index }}][bicycle_part_id]"
                                             class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                            onchange="updatePartImage(this)" required>
+                                            onchange="updatePartImage(this); updateBicyclePreview();" required>
                                             <option value="">Pasirinkite dalį...</option>
                                             @foreach ($types as $type)
                                                 @if (isset($partsByType[$type->value]))
@@ -77,6 +78,7 @@
                                                             <option value="{{ $part->id }}"
                                                                 data-max="{{ $part->amount }}"
                                                                 data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}"
+                                                                data-type="{{ $part->type->value }}"
                                                                 {{ old("components.$index.bicycle_part_id") == $part->id ? 'selected' : '' }}>
                                                                 {{ $part->name }} ({{ $part->amount }} turima)
                                                             </option>
@@ -131,7 +133,126 @@
                 </div>
 
                 <div id="empty-state" class="text-center py-8 text-gray-500" style="display: none;">
-                    <p>Dar nepridėta jokių komponentų. Paspauskite "Pridėti komponentą", kad pradėtumėte kurti dvirati.</p>
+                    <p>Dar nepridėta jokių komponentų. Paspauskite "Pridėti komponentą", kad pradėtumėte kurti
+                        dvirati.</p>
+                </div>
+            </div>
+
+            <!-- Bicycle Preview -->
+            <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Dviračio peržiūra</h2>
+
+                <div id="bicycle-preview" class="relative bg-gray-50 rounded-lg" style="height: 300px; overflow: hidden;">
+                    <!-- Bicycle parts will be layered here with specific positioning -->
+
+                    <!-- Frame - Base layer, horizontally oriented -->
+                    <div id="preview-frame" class="absolute"
+                        style="
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 98%;
+                            height: 100%;
+                            z-index: 1;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                    </div>
+
+                    <!-- Front Wheel - Left side bottom -->
+                    <div id="preview-wheel-front" class="absolute"
+                        style="
+                            left: 26%;
+                            bottom: 5%;
+                            transform: translateX(-50%);
+                            width: 16%;
+                            height: 45%;
+                            z-index: 2;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                    </div>
+
+                    <!-- Rear Wheel - Right side bottom -->
+                    <div id="preview-wheel-rear" class="absolute"
+                        style="
+                            left: 70%;
+                            bottom: 5%;
+                            transform: translateX(-50%);
+                            width: 16%;
+                            height: 45%;
+                            z-index: 2;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                    </div>
+
+                    <!-- Handlebars - Front top area -->
+                    <div id="preview-handlebars" class="absolute"
+                        style="
+                            left: 65%;
+                            top: 15%;
+                            transform: translate(-50%, -50%);
+                            width: 30%;
+                            height: 30%;
+                            z-index: 3;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                    </div>
+
+                    <!-- Saddle - Rear top area -->
+                    <div id="preview-saddle" class="absolute"
+                        style="
+                            left: 40%;
+                            top: 15%;
+                            transform: translate(-50%, -50%);
+                            width: 25%;
+                            height: 25%;
+                            z-index: 4;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                    </div>
+
+                    <!-- Pedals - Center area -->
+                    <div id="preview-pedals" class="absolute"
+                        style="
+                            left: 45%;
+                            bottom: 0%;
+                            transform: translateX(-50%);
+                            width: 30%;
+                            height: 30%;
+                            z-index: 5;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        ">
+                    </div>
+
+                    <!-- Empty state -->
+                    <div id="preview-empty"
+                        class="absolute inset-0 flex flex-col items-center justify-center text-gray-400"
+                        style="z-index: 10;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-16 h-16 mb-2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                        </svg>
+                        <p class="text-sm">Pasirinkite dalis, kad pamatytumėte dviratį</p>
+                    </div>
+                </div>
+
+                <div id="preview-info" class="mt-4 text-sm text-gray-600 space-y-1">
+                    <p><strong>Pasirinktos dalys:</strong></p>
+                    <ul id="preview-parts-list" class="list-disc list-inside text-xs">
+                        <li class="text-gray-400">Nėra pasirinktų dalių</li>
+                    </ul>
                 </div>
             </div>
 
@@ -162,7 +283,7 @@
                         <div class="flex gap-3">
                             <select name="components[${componentIndex}][bicycle_part_id]"
                                 class="part-select block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                onchange="updatePartImage(this)" required>
+                                onchange="updatePartImage(this); updateBicyclePreview();" required>
                                 <option value="">Pasirinkite dalį...</option>
                                 @foreach ($types as $type)
                                     @if (isset($partsByType[$type->value]))
@@ -170,7 +291,8 @@
                                             @foreach ($partsByType[$type->value] as $part)
                                                 <option value="{{ $part->id }}" 
                                                     data-max="{{ $part->amount }}"
-                                                    data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}">
+                                                    data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}"
+                                                    data-type="{{ $part->type->value }}">
                                                     {{ $part->name }} ({{ $part->amount }} available)
                                                 </option>
                                             @endforeach
@@ -225,6 +347,8 @@
             if (container.children.length === 0) {
                 emptyState.style.display = 'block';
             }
+
+            updateBicyclePreview();
         }
 
         function updatePartImage(select) {
@@ -256,6 +380,74 @@
             }
         }
 
+        function updateBicyclePreview() {
+            // Get all selected parts
+            const selectedParts = {};
+            const partsList = [];
+
+            document.querySelectorAll('.part-select').forEach(select => {
+                if (select.value) {
+                    const selectedOption = select.options[select.selectedIndex];
+                    const partType = selectedOption.dataset.type;
+                    const partImage = selectedOption.dataset.image;
+                    const partName = selectedOption.text.split('(')[0].trim();
+
+                    if (partType && partImage) {
+                        selectedParts[partType] = partImage;
+                        partsList.push(partName);
+                    }
+                }
+            });
+
+            // Update each preview layer
+            // Handle wheels separately - need to show the same image in two places
+            const partTypes = ['frame', 'handlebars', 'saddle', 'pedals'];
+
+            partTypes.forEach(type => {
+                const previewLayer = document.getElementById(`preview-${type}`);
+                if (previewLayer) {
+                    if (selectedParts[type]) {
+                        // All images constrained to their container size with object-fit: contain
+                        // This ensures images are scaled down if too large, but maintain aspect ratio
+                        previewLayer.innerHTML =
+                            `<img src="${selectedParts[type]}" alt="${type}" style="width: 100%; height: 100%; object-fit: contain;" />`;
+                    } else {
+                        previewLayer.innerHTML = '';
+                    }
+                }
+            });
+
+            // Handle wheels - show same image in both front and rear positions
+            const frontWheel = document.getElementById('preview-wheel-front');
+            const rearWheel = document.getElementById('preview-wheel-rear');
+
+            if (selectedParts['wheels']) {
+                const wheelImg =
+                    `<img src="${selectedParts['wheels']}" alt="wheel" style="width: 100%; height: 100%; object-fit: contain;" />`;
+                if (frontWheel) frontWheel.innerHTML = wheelImg;
+                if (rearWheel) rearWheel.innerHTML = wheelImg;
+            } else {
+                if (frontWheel) frontWheel.innerHTML = '';
+                if (rearWheel) rearWheel.innerHTML = '';
+            }
+
+            // Update empty state
+            const previewEmpty = document.getElementById('preview-empty');
+            if (Object.keys(selectedParts).length > 0) {
+                previewEmpty.style.display = 'none';
+            } else {
+                previewEmpty.style.display = 'flex';
+            }
+
+            // Update parts list
+            const partsListElement = document.getElementById('preview-parts-list');
+            if (partsList.length > 0) {
+                partsListElement.innerHTML = partsList.map(name => `<li>${name}</li>`).join('');
+            } else {
+                partsListElement.innerHTML = '<li class="text-gray-400">Nėra pasirinktų dalių</li>';
+            }
+        }
+
         // Initialize empty state and images on page load
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('components-container');
@@ -271,6 +463,9 @@
                     updatePartImage(select);
                 }
             });
+
+            // Initialize bicycle preview
+            updateBicyclePreview();
         });
     </script>
 @endsection

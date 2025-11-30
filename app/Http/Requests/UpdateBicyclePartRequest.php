@@ -21,7 +21,7 @@ class UpdateBicyclePartRequest extends FormRequest
             'amount' => ['required', 'integer', 'min:0'],
             'price' => ['required', 'numeric', 'min:0', 'max:999999.99'],
             'description' => ['nullable', 'string', 'max:1000'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,webp,svg', 'max:5120'],
         ];
     }
 }

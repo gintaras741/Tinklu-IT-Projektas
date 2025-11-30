@@ -116,6 +116,42 @@ class OrderController extends Controller
     }
 
     /**
+     * Advance order to next status
+     */
+    public function advanceStatus(Order $order): RedirectResponse
+    {
+        $oldStatus = $order->status;
+
+        // Can't advance cancelled orders
+        if ($oldStatus === OrderStatus::Cancelled) {
+            return back()->with('error', 'Cannot advance status of a cancelled order.');
+        }
+
+        $newStatus = $oldStatus->next();
+
+        DB::beginTransaction();
+
+        try {
+            $order->update(['status' => $newStatus]);
+
+            // Create alert for user
+            Alert::create([
+                'user_id' => $order->user_id,
+                'text' => "Your order #{$order->order_number} status has been updated to: {$newStatus->label()}",
+            ]);
+
+            DB::commit();
+
+            return back()->with('status', 'Order status advanced to: ' . $newStatus->label());
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            return back()->with('error', 'Failed to advance order status: ' . $e->getMessage());
+        }
+    }
+
+    /**
      * Show order statistics
      */
     public function statistics(): View

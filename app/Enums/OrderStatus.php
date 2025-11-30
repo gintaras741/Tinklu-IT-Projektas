@@ -36,4 +36,15 @@ enum OrderStatus: string
             self::Cancelled => 'red',
         };
     }
+
+    public function next(): self
+    {
+        return match($this) {
+            self::Pending => self::Processing,
+            self::Processing => self::Shipped,
+            self::Shipped => self::Delivered,
+            self::Delivered => self::Pending,
+            self::Cancelled => self::Cancelled,
+        };
+    }
 }

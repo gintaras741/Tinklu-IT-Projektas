@@ -197,47 +197,74 @@
                 </div>
 
                 <!-- Update Status -->
-                @if ($order->status->value !== 'cancelled' && $order->status->value !== 'delivered')
+                @if ($order->status->value !== 'cancelled')
                     <div class="rounded-xl bg-white shadow-sm border border-gray-200">
                         <div class="px-6 py-5">
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Atnaujinti būseną</h3>
-                            <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}">
+
+                            <!-- Quick Advance Button -->
+                            <form method="POST" action="{{ route('admin.orders.advanceStatus', $order) }}" class="mb-4">
                                 @csrf
-                                @method('PUT')
-                                <div class="space-y-4">
-                                    <div>
-                                        <label for="status" class="block text-sm font-medium text-gray-700">Nauja
-                                            būsena</label>
-                                        <select id="status" name="status" required
-                                            class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            <option value="pending"
-                                                {{ $order->status->value === 'pending' ? 'selected' : '' }}>Laukiama
-                                            </option>
-                                            <option value="processing"
-                                                {{ $order->status->value === 'processing' ? 'selected' : '' }}>
-                                                Vykdoma</option>
-                                            <option value="shipped"
-                                                {{ $order->status->value === 'shipped' ? 'selected' : '' }}>Išsiųsta
-                                            </option>
-                                            <option value="delivered"
-                                                {{ $order->status->value === 'delivered' ? 'selected' : '' }}>Pristatyta
-                                            </option>
-                                            <option value="cancelled"
-                                                {{ $order->status->value === 'cancelled' ? 'selected' : '' }}>Atšaukta
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <button type="submit"
-                                        class="w-full flex justify-center items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 transition-colors">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                        </svg>
-                                        Atnaujinti būseną
-                                    </button>
-                                </div>
+                                <button type="submit"
+                                    class="w-full flex justify-center items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-500 transition-colors">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                    Pereiti į kitą būseną
+                                </button>
                             </form>
+
+                            @if ($order->status->value !== 'delivered')
+                                <div class="relative mb-4">
+                                    <div class="absolute inset-0 flex items-center">
+                                        <div class="w-full border-t border-gray-300"></div>
+                                    </div>
+                                    <div class="relative flex justify-center text-sm">
+                                        <span class="px-2 bg-white text-gray-500">arba</span>
+                                    </div>
+                                </div>
+
+                                <!-- Manual Status Selection -->
+                                <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="status" class="block text-sm font-medium text-gray-700">Nauja
+                                                būsena</label>
+                                            <select id="status" name="status" required
+                                                class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                <option value="pending"
+                                                    {{ $order->status->value === 'pending' ? 'selected' : '' }}>Laukiama
+                                                </option>
+                                                <option value="processing"
+                                                    {{ $order->status->value === 'processing' ? 'selected' : '' }}>
+                                                    Vykdoma</option>
+                                                <option value="shipped"
+                                                    {{ $order->status->value === 'shipped' ? 'selected' : '' }}>Išsiųsta
+                                                </option>
+                                                <option value="delivered"
+                                                    {{ $order->status->value === 'delivered' ? 'selected' : '' }}>
+                                                    Pristatyta
+                                                </option>
+                                                <option value="cancelled"
+                                                    {{ $order->status->value === 'cancelled' ? 'selected' : '' }}>Atšaukta
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <button type="submit"
+                                            class="w-full flex justify-center items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 transition-colors">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            Atnaujinti būseną
+                                        </button>
+                                    </div>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 @endif

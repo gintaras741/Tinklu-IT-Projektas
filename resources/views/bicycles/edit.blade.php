@@ -88,8 +88,14 @@
                                                         <option value="{{ $part->id }}" data-max="{{ $part->amount }}"
                                                             data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}"
                                                             data-type="{{ $part->type->value }}"
-                                                            {{ $component['bicycle_part_id'] == $part->id ? 'selected' : '' }}>
-                                                            {{ $part->name }} ({{ $part->amount }} turima)
+                                                            {{ $component['bicycle_part_id'] == $part->id ? 'selected' : '' }}
+                                                            style="{{ $part->amount <= 0 ? 'color: #dc2626; font-weight: 500;' : '' }}">
+                                                            {{ $part->name }}
+                                                            @if ($part->amount > 0)
+                                                                ({{ $part->amount }} turima)
+                                                            @else
+                                                                (NĖRA SANDĖLYJE)
+                                                            @endif
                                                         </option>
                                                     @endforeach
                                                 </optgroup>
@@ -114,16 +120,7 @@
                                 @enderror
                             </div>
 
-                            <div class="w-32">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Kiekis</label>
-                                <input type="number" name="components[{{ $index }}][quantity]"
-                                    value="{{ $component['quantity'] }}" min="1"
-                                    class="quantity-input block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    required>
-                                @error("components.$index.quantity")
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
+                            <input type="hidden" name="components[{{ $index }}][quantity]" value="1">
 
                             <div class="pt-7">
                                 <button type="button" onclick="removeComponent(this)"
@@ -298,8 +295,14 @@
                                                 <option value="{{ $part->id }}" 
                                                     data-max="{{ $part->amount }}"
                                                     data-image="{{ $part->image ? asset('storage/' . $part->image) : '' }}"
-                                                    data-type="{{ $part->type->value }}">
-                                                    {{ $part->name }} ({{ $part->amount }} available)
+                                                    data-type="{{ $part->type->value }}"
+                                                    style="{{ $part->amount <= 0 ? 'color: #dc2626; font-weight: 500;' : '' }}">
+                                                    {{ $part->name }} 
+                                                    @if ($part->amount > 0)
+                                                        ({{ $part->amount }} turima)
+                                                    @else
+                                                        (NĖRA SANDĖLYJE)
+                                                    @endif
                                                 </option>
                                             @endforeach
                                         </optgroup>
@@ -317,12 +320,7 @@
                         </div>
                     </div>
 
-                    <div class="w-32">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Kiekis</label>
-                        <input type="number" name="components[${componentIndex}][quantity]" value="1" min="1"
-                            class="quantity-input block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            required>
-                    </div>
+                    <input type="hidden" name="components[${componentIndex}][quantity]" value="1">
 
                     <div class="pt-7">
                         <button type="button" onclick="removeComponent(this)"
@@ -359,21 +357,11 @@
 
         function updatePartImage(select) {
             const row = select.closest('.component-row');
-            const quantityInput = row.querySelector('.quantity-input');
             const container = row.querySelector('.part-image-container');
             const img = container.querySelector('.part-image');
             const placeholder = container.querySelector('.part-placeholder');
             const selectedOption = select.options[select.selectedIndex];
-            const maxQuantity = selectedOption.dataset.max;
             const imageUrl = selectedOption.dataset.image;
-
-            // Update quantity validation
-            if (maxQuantity) {
-                quantityInput.max = maxQuantity;
-                if (parseInt(quantityInput.value) > parseInt(maxQuantity)) {
-                    quantityInput.value = maxQuantity;
-                }
-            }
 
             // Update image display
             if (imageUrl) {

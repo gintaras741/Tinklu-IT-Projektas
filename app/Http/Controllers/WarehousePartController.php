@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\PartType;
 use App\Models\BicyclePart;
+use App\Models\Order;
+use App\Enums\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
@@ -92,5 +94,58 @@ class WarehousePartController extends Controller
         }
         $bicycle_part->delete();
         return redirect()->route('warehouse.index')->with('status', 'Part deleted');
+    }
+
+    /**
+     * Show orders that need restocking
+     */
+    public function restocking(): View
+    {
+        // Get pending and processing orders with out of stock items
+        $ordersNeedingRestock = Order::whereIn('status', [OrderStatus::Pending, OrderStatus::Processing])
+            ->where('notes', 'like', '%[TRŪKSTA SANDĖLYJE]%')
+            ->with(['user', 'partItems.part', 'bicycleItems.bicycle'])
+            ->orderBy('ordered_at', 'asc')
+            ->get();
+
+        // Aggregate needed parts
+        $partsNeeded = [];
+        
+        foreach ($ordersNeedingRestock as $order) {
+            $stockInfo = $order->getOutOfStockInfo();
+            if (!$stockInfo) continue;
+            
+            // Parse the stock info to extract part needs
+            preg_match_all('/-\s*([^:]+):\s*reikia\s*(\d+),\s*sandėlyje\s*(\d+),\s*trūksta\s*(\d+)/u', $stockInfo, $matches, PREG_SET_ORDER);
+            
+            foreach ($matches as $match) {
+                $partName = trim($match[1]);
+                // Remove bicycle name in parentheses if present
+                $partName = preg_replace('/\s*\(dviračiui[^)]+\)\s*/u', '', $partName);
+                
+                $shortage = (int)$match[4];
+                
+                if (!isset($partsNeeded[$partName])) {
+                    $partsNeeded[$partName] = [
+                        'name' => $partName,
+                        'total_shortage' => 0,
+                        'orders' => []
+                    ];
+                }
+                
+                $partsNeeded[$partName]['total_shortage'] += $shortage;
+                $partsNeeded[$partName]['orders'][] = $order->order_number;
+            }
+        }
+        
+        // Sort by total shortage descending
+        uasort($partsNeeded, function($a, $b) {
+            return $b['total_shortage'] - $a['total_shortage'];
+        });
+
+        return view('warehouse.restocking', [
+            'ordersNeedingRestock' => $ordersNeedingRestock,
+            'partsNeeded' => $partsNeeded
+        ]);
     }
 }

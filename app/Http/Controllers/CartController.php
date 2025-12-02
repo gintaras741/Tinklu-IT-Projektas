@@ -73,14 +73,9 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        // Check if all components are in stock
-        foreach ($bicycle->components as $component) {
-            $requiredAmount = $component->quantity * $request->quantity;
-            if (!$component->part->isInStock($requiredAmount)) {
-                return back()->with('error', "Insufficient stock for part: {$component->part->name}");
-            }
-        }
-
+        // Note: We allow adding bicycles with out-of-stock parts to cart
+        // Stock validation happens at order placement
+        
         $cart = $this->getOrCreateCart();
 
         // Check if bicycle already in cart
@@ -88,13 +83,6 @@ class CartController extends Controller
 
         if ($existingItem) {
             $newAmount = $existingItem->amount + $request->quantity;
-            // Re-check stock with new amount
-            foreach ($bicycle->components as $component) {
-                $requiredAmount = $component->quantity * $newAmount;
-                if (!$component->part->isInStock($requiredAmount)) {
-                    return back()->with('error', 'Cannot add more. Insufficient stock.');
-                }
-            }
             $cart->bicycleItems()
                 ->where('bicycle_id', $bicycle->id)
                 ->update(['amount' => $newAmount]);
@@ -143,13 +131,8 @@ class CartController extends Controller
         $cart = $this->getOrCreateCart();
         $item = $cart->bicycleItems()->where('bicycle_id', $bicycleId)->firstOrFail();
 
-        // Check stock for all components
-        foreach ($item->bicycle->components as $component) {
-            $requiredAmount = $component->quantity * $request->quantity;
-            if (!$component->part->isInStock($requiredAmount)) {
-                return back()->with('error', "Insufficient stock for part: {$component->part->name}");
-            }
-        }
+        // Note: We allow updating bicycle quantities even with out-of-stock parts
+        // Stock validation happens at order placement
 
         $cart->bicycleItems()
             ->where('bicycle_id', $bicycleId)

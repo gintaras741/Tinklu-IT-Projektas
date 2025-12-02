@@ -27,34 +27,8 @@ class UpdateBicycleRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'components' => ['required', 'array', 'min:1'],
             'components.*.bicycle_part_id' => ['required', 'exists:bicycle_parts,id'],
-            'components.*.quantity' => ['required', 'integer', 'min:1'],
+            'components.*.quantity' => ['required', 'integer', 'in:1'],
         ];
-    }
-
-    /**
-     * Configure the validator instance.
-     */
-    public function withValidator(Validator $validator): void
-    {
-        $validator->after(function ($validator) {
-            $components = $this->input('components', []);
-            
-            foreach ($components as $index => $component) {
-                $partId = $component['bicycle_part_id'] ?? null;
-                $quantity = $component['quantity'] ?? 0;
-                
-                if ($partId) {
-                    $part = BicyclePart::find($partId);
-                    
-                    if ($part && $quantity > $part->amount) {
-                        $validator->errors()->add(
-                            "components.{$index}.quantity",
-                            "The selected quantity exceeds available stock ({$part->amount} available)."
-                        );
-                    }
-                }
-            }
-        });
     }
 
     public function messages(): array

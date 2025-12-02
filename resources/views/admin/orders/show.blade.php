@@ -3,8 +3,10 @@
 @section('title', 'Užsakymo detalės')
 
 @section('content')
-    @php($status = session('status'))
-    @php($error = session('error'))
+    @php
+        $status = session('status');
+        $error = session('error');
+    @endphp
 
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
@@ -134,7 +136,48 @@
                     <div class="rounded-xl bg-white shadow-sm border border-gray-200">
                         <div class="px-6 py-5">
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Pastabos</h3>
-                            <p class="text-sm text-gray-600 whitespace-pre-line">{{ $order->notes }}</p>
+
+                            @if ($order->hasOutOfStockItems())
+                                @php
+                                    $notes = $order->notes;
+                                    $stockInfoStart = strpos($notes, '[TRŪKSTA SANDĖLYJE]');
+                                    $regularNotes =
+                                        $stockInfoStart !== false ? trim(substr($notes, 0, $stockInfoStart)) : $notes;
+                                    $stockInfo = $order->getOutOfStockInfo();
+                                @endphp
+
+                                @if ($regularNotes)
+                                    <p class="text-sm text-gray-600 whitespace-pre-line mb-4">{{ $regularNotes }}</p>
+                                @endif
+
+                                @if ($stockInfo)
+                                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                                        <div class="flex items-start">
+                                            <svg class="w-5 h-5 text-red-600 mr-2 mt-0.5" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                            <div class="flex-1">
+                                                <h4 class="text-sm font-semibold text-red-800 mb-2">TRŪKSTAMOS DETALĖS</h4>
+                                                <div class="text-sm text-red-700 whitespace-pre-line font-mono">
+                                                    {{ trim(str_replace('[TRŪKSTA SANDĖLYJE]', '', $stockInfo)) }}</div>
+                                                <a href="{{ route('warehouse.index') }}"
+                                                    class="inline-flex items-center mt-3 px-3 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                    </svg>
+                                                    Eiti į sandėlį
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @else
+                                <p class="text-sm text-gray-600 whitespace-pre-line">{{ $order->notes }}</p>
+                            @endif
                         </div>
                     </div>
                 @endif
@@ -203,7 +246,8 @@
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Atnaujinti būseną</h3>
 
                             <!-- Quick Advance Button -->
-                            <form method="POST" action="{{ route('admin.orders.advanceStatus', $order) }}" class="mb-4">
+                            <form method="POST" action="{{ route('admin.orders.advanceStatus', $order) }}"
+                                class="mb-4">
                                 @csrf
                                 <button type="submit"
                                     class="w-full flex justify-center items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-500 transition-colors">

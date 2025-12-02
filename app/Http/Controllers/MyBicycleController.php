@@ -31,8 +31,7 @@ class MyBicycleController extends Controller
      */
     public function create(): View
     {
-        $partsByType = BicyclePart::where('amount', '>', 0)
-            ->orderBy('type')
+        $partsByType = BicyclePart::orderBy('type')
             ->orderBy('name')
             ->get()
             ->groupBy('type');
@@ -106,8 +105,7 @@ class MyBicycleController extends Controller
 
         $bicycle->load('components.part');
 
-        $partsByType = BicyclePart::where('amount', '>', 0)
-            ->orderBy('type')
+        $partsByType = BicyclePart::orderBy('type')
             ->orderBy('name')
             ->get()
             ->groupBy('type');

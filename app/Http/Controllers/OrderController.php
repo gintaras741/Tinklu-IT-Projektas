@@ -78,11 +78,19 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
-            // Validate stock availability
+            // Track out of stock items instead of blocking the order
+            $outOfStockItems = [];
+            
             foreach ($cart->partItems()->with('part')->get() as $item) {
                 if (!$item->part->isInStock($item->amount)) {
-                    DB::rollBack();
-                    return back()->with('error', "Insufficient stock for part: {$item->part->name}");
+                    $shortage = $item->amount - $item->part->amount;
+                    $outOfStockItems[] = [
+                        'type' => 'part',
+                        'name' => $item->part->name,
+                        'needed' => $item->amount,
+                        'available' => max(0, $item->part->amount),
+                        'shortage' => $shortage
+                    ];
                 }
             }
 
@@ -90,19 +98,40 @@ class OrderController extends Controller
                 foreach ($item->bicycle->components as $component) {
                     $requiredAmount = $component->quantity * $item->amount;
                     if (!$component->part->isInStock($requiredAmount)) {
-                        DB::rollBack();
-                        return back()->with('error', "Insufficient stock for part: {$component->part->name}");
+                        $shortage = $requiredAmount - $component->part->amount;
+                        $outOfStockItems[] = [
+                            'type' => 'bicycle_component',
+                            'bicycle' => $item->bicycle->name,
+                            'name' => $component->part->name,
+                            'needed' => $requiredAmount,
+                            'available' => max(0, $component->part->amount),
+                            'shortage' => $shortage
+                        ];
                     }
                 }
             }
 
+            // Build notes with stock information
+            $orderNotes = $request->notes;
+            if (!empty($outOfStockItems)) {
+                $stockInfo = "\n\n[TRŪKSTA SANDĖLYJE]\n";
+                foreach ($outOfStockItems as $item) {
+                    if ($item['type'] === 'part') {
+                        $stockInfo .= "- {$item['name']}: reikia {$item['needed']}, sandėlyje {$item['available']}, trūksta {$item['shortage']}\n";
+                    } else {
+                        $stockInfo .= "- {$item['name']} (dviračiui '{$item['bicycle']}'): reikia {$item['needed']}, sandėlyje {$item['available']}, trūksta {$item['shortage']}\n";
+                    }
+                }
+                $orderNotes = ($orderNotes ? $orderNotes : '') . $stockInfo;
+            }
+            
             // Create order
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'total_amount' => 0, // Will be calculated
                 'status' => OrderStatus::Pending,
                 'shipping_address' => $request->shipping_address,
-                'notes' => $request->notes,
+                'notes' => $orderNotes,
                 'ordered_at' => now(),
             ]);
 
@@ -123,8 +152,12 @@ class OrderController extends Controller
                         'updated_at' => now(),
                     ]);
 
-                // Reduce inventory
-                $item->part->decrement('amount', $item->amount);
+                // Reduce inventory only for available stock
+                $availableStock = max(0, $item->part->amount);
+                $deductAmount = min($item->amount, $availableStock);
+                if ($deductAmount > 0) {
+                    $item->part->decrement('amount', $deductAmount);
+                }
                 
                 $totalAmount += $subtotal;
             }
@@ -144,9 +177,14 @@ class OrderController extends Controller
                         'updated_at' => now(),
                     ]);
 
-                // Reduce inventory for each component
+                // Reduce inventory for each component only for available stock
                 foreach ($item->bicycle->components as $component) {
-                    $component->part->decrement('amount', $component->quantity * $item->amount);
+                    $requiredAmount = $component->quantity * $item->amount;
+                    $availableStock = max(0, $component->part->amount);
+                    $deductAmount = min($requiredAmount, $availableStock);
+                    if ($deductAmount > 0) {
+                        $component->part->decrement('amount', $deductAmount);
+                    }
                 }
                 
                 $totalAmount += $subtotal;
@@ -163,7 +201,12 @@ class OrderController extends Controller
 
             DB::commit();
 
-            return redirect()->route('orders.show', $order)->with('status', 'Order placed successfully!');
+            $message = 'Order placed successfully!';
+            if (!empty($outOfStockItems)) {
+                $message .= ' Kai kurios detalės nebuvo sandėlyje. Darbuotojai papildys atsargas ir įvykdys užsakymą.';
+            }
+
+            return redirect()->route('orders.show', $order)->with('status', $message);
 
         } catch (\Exception $e) {
             DB::rollBack();

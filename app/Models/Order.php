@@ -98,6 +98,32 @@ class Order extends Model
     }
 
     /**
+     * Check if order has out of stock items based on notes
+     */
+    public function hasOutOfStockItems(): bool
+    {
+        return str_contains($this->notes ?? '', '[TRŪKSTA SANDĖLYJE]');
+    }
+
+    /**
+     * Get out of stock information from order notes
+     */
+    public function getOutOfStockInfo(): ?string
+    {
+        if (!$this->hasOutOfStockItems()) {
+            return null;
+        }
+
+        $notes = $this->notes ?? '';
+        $start = strpos($notes, '[TRŪKSTA SANDĖLYJE]');
+        if ($start === false) {
+            return null;
+        }
+
+        return substr($notes, $start);
+    }
+
+    /**
      * Scopes
      */
     public function scopeForUser($query, $userId)

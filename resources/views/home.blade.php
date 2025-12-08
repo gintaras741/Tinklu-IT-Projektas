@@ -149,21 +149,6 @@
                         <p class="mt-1 text-sm text-gray-500">Peržiūrėti visus užsakymus</p>
                     </a>
 
-                    <!-- Statistics -->
-                    <a href="{{ route('admin.orders.statistics') }}"
-                        class="group block rounded-lg bg-white p-6 shadow hover:shadow-md transition-shadow border border-gray-200">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="rounded-lg bg-teal-100 p-3">
-                                <svg class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 group-hover:text-teal-600">Statistika</h3>
-                        <p class="mt-1 text-sm text-gray-500">Peržiūrėti metrikas</p>
-                    </a>
-
                     @if (auth()->user()->isAdmin())
                         <!-- Manage Users -->
                         <a href="{{ route('admin.users.index') }}"

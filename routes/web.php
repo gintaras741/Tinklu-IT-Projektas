@@ -86,7 +86,6 @@ Route::middleware(['auth'])->group(function () {
 // Admin Orders (admin & worker only)
 Route::middleware(['auth', 'role:admin,worker'])->prefix('admin')->group(function () {
     Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');
-    Route::get('/orders/statistics', [\App\Http\Controllers\Admin\OrderController::class, 'statistics'])->name('admin.orders.statistics');
     Route::get('/orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('admin.orders.show');
     Route::put('/orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
     Route::post('/orders/{order}/advance', [\App\Http\Controllers\Admin\OrderController::class, 'advanceStatus'])->name('admin.orders.advanceStatus');

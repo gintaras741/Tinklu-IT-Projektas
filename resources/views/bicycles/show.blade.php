@@ -94,7 +94,7 @@
                                 <td class="px-6 py-4 text-gray-700">
                                     <span
                                         class="inline-flex items-center rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700">
-                                        {{ ucfirst(str_replace('_', ' ', $component->part->type->value)) }}
+                                        {{ $component->part->type->label() }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-gray-700">

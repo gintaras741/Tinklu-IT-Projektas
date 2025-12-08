@@ -19,8 +19,8 @@
                 <select name="type"
                     class="mt-1 block w-full h-11 rounded-lg border border-gray-300 bg-white px-4 text-base shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     @foreach ($types as $type)
-                        <option value="{{ $type }}" @selected(old('type', $part->type->value ?? $part->type) === $type)>
-                            {{ ucfirst(str_replace('_', ' ', $type)) }}</option>
+                        <option value="{{ $type->value }}" @selected(old('type', $part->type->value ?? $part->type) === $type->value)>
+                            {{ $type->label() }}</option>
                     @endforeach
                 </select>
                 @error('type')

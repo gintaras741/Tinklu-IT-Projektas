@@ -30,7 +30,7 @@ class WarehousePartController extends Controller
      */
     public function create(): View
     {
-        $types = PartType::values();
+        $types = PartType::cases();
         return view('warehouse.create', compact('types'));
     }
 
@@ -58,7 +58,7 @@ class WarehousePartController extends Controller
      */
     public function edit(BicyclePart $bicycle_part): View
     {
-        $types = PartType::values();
+        $types = PartType::cases();
         return view('warehouse.edit', ['part' => $bicycle_part, 'types' => $types]);
     }
 

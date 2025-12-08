@@ -40,7 +40,7 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-4 py-3 text-gray-700">{{ $part->id }}</td>
                             <td class="px-4 py-3 text-gray-700">
-                                {{ ucfirst(str_replace('_', ' ', $part->type->value ?? $part->type)) }}</td>
+                                {{ $part->type->label() }}</td>
                             <td class="px-4 py-3 text-gray-900 font-medium">{{ $part->name }}</td>
                             <td class="px-4 py-3 text-gray-700">{{ $part->amount }}</td>
                             <td class="px-4 py-3 text-gray-900 font-semibold">€{{ number_format($part->price, 2) }}</td>

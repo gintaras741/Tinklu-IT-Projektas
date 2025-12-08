@@ -44,7 +44,7 @@
                                     <h3 class="text-xl font-semibold text-gray-900 mb-1">{{ $part->name }}</h3>
                                     <span
                                         class="inline-flex items-center rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700">
-                                        {{ $part->type->value }}
+                                        {{ $part->type->label() }}
                                     </span>
                                 </div>
                                 <div class="text-right">

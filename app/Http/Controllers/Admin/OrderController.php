@@ -150,39 +150,4 @@ class OrderController extends Controller
             return back()->with('error', 'Failed to advance order status: ' . $e->getMessage());
         }
     }
-
-    /**
-     * Show order statistics
-     */
-    public function statistics(): View
-    {
-        $totalOrders = Order::count();
-        $pendingOrders = Order::where('status', OrderStatus::Pending)->count();
-        $processingOrders = Order::where('status', OrderStatus::Processing)->count();
-        $shippedOrders = Order::where('status', OrderStatus::Shipped)->count();
-        $deliveredOrders = Order::where('status', OrderStatus::Delivered)->count();
-        $cancelledOrders = Order::where('status', OrderStatus::Cancelled)->count();
-
-        $totalRevenue = Order::whereIn('status', [
-            OrderStatus::Processing,
-            OrderStatus::Shipped,
-            OrderStatus::Delivered
-        ])->sum('total_amount');
-
-        $recentOrders = Order::with('user')
-            ->latest('ordered_at')
-            ->limit(10)
-            ->get();
-
-        return view('admin.orders.statistics', compact(
-            'totalOrders',
-            'pendingOrders',
-            'processingOrders',
-            'shippedOrders',
-            'deliveredOrders',
-            'cancelledOrders',
-            'totalRevenue',
-            'recentOrders'
-        ));
-    }
 }

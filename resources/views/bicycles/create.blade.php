@@ -73,7 +73,7 @@
                                             <option value="">Pasirinkite dalį...</option>
                                             @foreach ($types as $type)
                                                 @if (isset($partsByType[$type->value]))
-                                                    <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
+                                                    <optgroup label="{{ $type->label() }}">
                                                         @foreach ($partsByType[$type->value] as $part)
                                                             <option value="{{ $part->id }}"
                                                                 data-max="{{ $part->amount }}"
@@ -284,7 +284,7 @@
                                 <option value="">Pasirinkite dalį...</option>
                                 @foreach ($types as $type)
                                     @if (isset($partsByType[$type->value]))
-                                        <optgroup label="{{ ucfirst(str_replace('_', ' ', $type->value)) }}">
+                                        <optgroup label="{{ $type->label() }}">
                                             @foreach ($partsByType[$type->value] as $part)
                                                 <option value="{{ $part->id }}" 
                                                     data-max="{{ $part->amount }}"

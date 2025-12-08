@@ -68,7 +68,7 @@
                                                 @endif
                                                 <div>
                                                     <p class="font-medium text-gray-900">{{ $item->part->name }}</p>
-                                                    <p class="text-sm text-gray-500">{{ $item->part->type->value }}</p>
+                                                    <p class="text-sm text-gray-500">{{ $item->part->type->label() }}</p>
                                                     <p class="text-sm text-gray-600">Kiekis: {{ $item->amount }}</p>
                                                     <p class="text-sm font-medium text-gray-900">
                                                         €{{ number_format($item->part->price, 2) }} vnt.</p>

@@ -127,7 +127,6 @@
                                             class="text-indigo-600 hover:text-indigo-500 font-medium">
                                             Redaguoti
                                         </a>
-                                        @if ($user->id !== auth()->id())
                                             <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
                                                 class="inline"
                                                 onsubmit="return confirm('Ar tikrai norite ištrinti {{ $user->name }}? Šio veiksmo negalima atstatyti.');">
@@ -137,9 +136,6 @@
                                                     Ištrinti
                                                 </button>
                                             </form>
-                                        @else
-                                            <span class="text-gray-400 text-sm">(Jūs)</span>
-                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -154,5 +150,31 @@
                 </div>
             @endif
         @endif
+    </div>
+
+    <!-- Delete Own Account Modal -->
+    <div id="deleteOwnAccountModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 mb-2">Ištrinti savo paskyrą</h3>
+                <p class="text-sm text-gray-500 mb-4">
+                    Ar tikrai norite ištrinti savo paskyrą? Visi jūsų duomenys bus negrįžtamai ištrinti.
+                </p>
+                <form action="{{ route('admin.users.destroy', auth()->user()) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="flex gap-3">
+                        <button type="submit"
+                            class="flex-1 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-red-500">
+                            Ištrinti paskyrą
+                        </button>
+                        <button type="button" onclick="document.getElementById('deleteOwnAccountModal').classList.add('hidden')"
+                            class="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                            Atšaukti
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection

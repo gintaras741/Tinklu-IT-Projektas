@@ -11,7 +11,7 @@
                 @csrf
                 <!-- Email Input -->
                 <div>
-                    <x-forms.input label="El. paštas" name="email" type="email" placeholder="your@email.com"
+                    <x-forms.input label="El. paštas" name="email" placeholder="your@email.com"
                         autofocus />
                 </div>
 

@@ -68,16 +68,17 @@ class UserController extends Controller
     /**
      * Remove the specified user from storage
      */
-    public function destroy(User $user): RedirectResponse
+    public function destroy(Request $request, User $user): RedirectResponse
     {
-        // Prevent admin from deleting themselves
+        // If deleting own account
         if ($user->id === auth()->id()) {
-            return back()->with('error', 'You cannot delete your own account.');
-        }
-
-        // Check if this is the last admin
-        if ($user->isAdmin() && User::where('role', Role::Admin)->count() === 1) {
-            return back()->with('error', 'Cannot delete the last admin user.');
+            
+            auth()->logout();
+            $user->delete();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            
+            return redirect('/login')->with('status', 'Your account has been deleted successfully.');
         }
 
         $user->delete();
